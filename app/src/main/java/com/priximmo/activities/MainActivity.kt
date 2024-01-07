@@ -67,14 +67,17 @@ class MainActivity : AppCompatActivity() {
 //            val optionalAdressBan = responseManager.getAPIReturn(callAddressAPI, AddressBAN::class.java)
 //            fillAddressList(optionalAdressBan.orElse(AddressBAN()))
             if (query != null) {
+                Log.d(Tag, "QueryNotNull")
                 main(query)
             }
+            Log.d(Tag, "QueryNull")
         }
     }
 
-    private fun fillAddressList(listOfAddress: AddressBAN) {
+    private fun fillAddressList(listOfAddress: AddressResponse) {
+        Log.d(Tag, "fillAddressList")
         mList.clear()
-        if (listOfAddress.features.size > 0) {
+        if (listOfAddress.features.isNotEmpty()) {
             for (addressFeature in listOfAddress.features) {
                 var addressSample = AddressData(addressFeature.properties.label, addressFeature.properties.context,
                     addressFeature.geometry.toString())
@@ -103,7 +106,9 @@ class MainActivity : AppCompatActivity() {
                     Log.d(Tag, response.message().toString())
                     Log.d(Tag, response.body().toString())
                     val addressResponse = response.body()
-                    // Handle the API response here
+                    if (addressResponse != null) {
+                        fillAddressList(addressResponse)
+                    }
                     println("API Response: $addressResponse")
                 } else {
                     println("API request failed. Response Code: ${response.code()}")
