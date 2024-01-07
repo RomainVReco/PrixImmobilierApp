@@ -1,6 +1,7 @@
 package com.priximmo.activities
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,12 @@ import com.priximmo.dataclass.AddressData
 import com.priximmo.geojson.adresseban.AddressBAN
 import com.priximmo.model.ResponseManagerHTTP
 import com.priximmo.servicepublicapi.AdresseAPI
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,9 +24,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchView : androidx.appcompat.widget.SearchView
     private lateinit var addressAdapter: AddressAdapter
     private var mList = ArrayList<AddressData>()
+    private val Tag: String = "MainActivity1"
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d(Tag, "onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -43,11 +54,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun queryAddressFromText(query: String?) {
-        val callAddressAPI = AdresseAPI(query)
-        val responseManager = ResponseManagerHTTP<AddressBAN>()
-        val optionalAdressBan = responseManager.getAPIReturn(callAddressAPI, AddressBAN::class.java)
-        fillAddressList(optionalAdressBan.orElse(AddressBAN()))
+        GlobalScope.launch(Dispatchers.IO) {
+            val callAddressAPI = AdresseAPI(query)
+            val responseManager = ResponseManagerHTTP<AddressBAN>()
+            val optionalAdressBan = responseManager.getAPIReturn(callAddressAPI, AddressBAN::class.java)
+            fillAddressList(optionalAdressBan.orElse(AddressBAN()))
         }
+    }
 
     private fun fillAddressList(listOfAddress: AddressBAN) {
         mList.clear()
@@ -60,4 +73,5 @@ class MainActivity : AppCompatActivity() {
             addressAdapter.setResultSet(mList)
         }
     }
+
 }
