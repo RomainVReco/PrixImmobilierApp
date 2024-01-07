@@ -25,7 +25,6 @@ public abstract class AbstractRequestAPI {
         conn.setRequestMethod("GET");
         conn.setDoOutput(true);
         conn.setRequestProperty("Content-Type", "application/json");
-        conn.setRequestProperty("User-Agent", "Mozilla/5.0");
         return conn;
     }
 
