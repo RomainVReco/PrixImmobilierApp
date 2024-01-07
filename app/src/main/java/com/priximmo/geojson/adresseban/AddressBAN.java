@@ -9,24 +9,24 @@ import java.util.List;
 * Objet utilisé pour la récupération d'une FeatureCollection de l'API Adresse
 * */
 
-public class AdresseBAN {
+public class AddressBAN {
     @JsonProperty("type")
     String type;
     @JsonProperty("version")
     String version;
     @JsonProperty("features")
-    List<FeatureAdresseBAN> featureAdresseBAN;
+    List<FeatureAddressBAN> featureAddressBAN;
     String attribution;
     String licence;
     String query;
     int limit;
 
-    public List<FeatureAdresseBAN> getFeatures() {
-        return featureAdresseBAN;
+    public List<FeatureAddressBAN> getFeatures() {
+        return featureAddressBAN;
     }
 
-    public void setFeatures(List<FeatureAdresseBAN> featureAdresseBAN) {
-        this.featureAdresseBAN = featureAdresseBAN;
+    public void setFeatures(List<FeatureAddressBAN> featureAddressBAN) {
+        this.featureAddressBAN = featureAddressBAN;
     }
 
     public String getAttribution() {
@@ -66,7 +66,7 @@ public class AdresseBAN {
         return "AdresseBAN{" +
                 "type='" + type + '\'' +
                 ", version='" + version + '\'' +
-                ", features=" + featureAdresseBAN +
+                ", features=" + featureAddressBAN +
                 ", attribution='" + attribution + '\'' +
                 ", licence='" + licence + '\'' +
                 ", query='" + query + '\'' +
@@ -78,7 +78,7 @@ public class AdresseBAN {
         StringBuilder sb = new StringBuilder();
         int i = 0;
         String limitLine = "\n################################################\n\n";
-        for (FeatureAdresseBAN feature : getFeatures()) {
+        for (FeatureAddressBAN feature : getFeatures()) {
             sb.append("Label : ").append(feature.getProperties().getLabel()).append(",\n");
             sb.append("Code INSEE : ").append(feature.getProperties().getCitycode()).append(",\n");
             sb.append("Context : ").append(feature.getProperties().getContext()).append(",\n");

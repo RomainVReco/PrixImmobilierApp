@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Classe encapsulée dans AdresseAPI afin d'obtenir les détail d'une adresse
  */
-public class AdressProperties {
+public class AddressProperties {
         @JsonProperty("label")
         private String label;
         @JsonProperty("score")

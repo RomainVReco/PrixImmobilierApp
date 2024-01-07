@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import android.os.Build;
 
 import com.priximmo.exceptions.UnknownResponseCode;
-import com.priximmo.geojson.adresseban.AdresseBAN;
+import com.priximmo.geojson.adresseban.AddressBAN;
 import com.priximmo.geojson.feuille.Feuille;
 import com.priximmo.geojson.geomutation.Geomutation;
 import com.priximmo.geojson.mutation.Mutation;
@@ -25,8 +25,8 @@ class ResponseManagerHTTPTest {
     void controleAdresseRetourMultiples() throws IOException, URISyntaxException, UnknownResponseCode {
         String queryAdresse = "202 avenue du Maine";
         AdresseAPI adresse = new AdresseAPI(queryAdresse);
-        ResponseManagerHTTP<AdresseBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
-        Optional<AdresseBAN> optionalAdresseBAN = gestionCodeRetour.getAPIReturn(adresse, AdresseBAN.class);
+        ResponseManagerHTTP<AddressBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
+        Optional<AddressBAN> optionalAdresseBAN = gestionCodeRetour.getAPIReturn(adresse, AddressBAN.class);
         assertTrue(optionalAdresseBAN.isPresent());
         assertEquals(5, optionalAdresseBAN.get().getFeatures().size());
     }
@@ -35,8 +35,8 @@ class ResponseManagerHTTPTest {
     void controleAdresseRetourUnique() throws IOException, URISyntaxException, UnknownResponseCode {
         String queryAdresse = "31 avenue du Bas Meudon";
         AdresseAPI adresse = new AdresseAPI(queryAdresse);
-        ResponseManagerHTTP<AdresseBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
-        Optional<AdresseBAN> optionalAdresseBAN = gestionCodeRetour.getAPIReturn(adresse, AdresseBAN.class);
+        ResponseManagerHTTP<AddressBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
+        Optional<AddressBAN> optionalAdresseBAN = gestionCodeRetour.getAPIReturn(adresse, AddressBAN.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             assertFalse(optionalAdresseBAN.isEmpty());
         }
@@ -47,17 +47,17 @@ class ResponseManagerHTTPTest {
     void controleAdresseErreur400() throws IOException, URISyntaxException, UnknownResponseCode{
         String queryAdresse = "&é\"&é\"&z";
         AdresseAPI adresse = new AdresseAPI(queryAdresse);
-        ResponseManagerHTTP<AdresseBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
+        ResponseManagerHTTP<AddressBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
         assertEquals(400, adresse.getConn().getResponseCode());
-        assertThrows(NoSuchElementException.class, () -> gestionCodeRetour.getAPIReturn(adresse, AdresseBAN.class).get());
+        assertThrows(NoSuchElementException.class, () -> gestionCodeRetour.getAPIReturn(adresse, AddressBAN.class).get());
     }
 
     @Test
     void controleParcelleRetourUnique() throws IOException, URISyntaxException, UnknownResponseCode {
         String queryAdresse = "202 avenue du Maine";
         AdresseAPI adresse = new AdresseAPI(queryAdresse);
-        ResponseManagerHTTP<AdresseBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
-        AdresseBAN newAdress = gestionCodeRetour.getAPIReturn(adresse, AdresseBAN.class).get();
+        ResponseManagerHTTP<AddressBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
+        AddressBAN newAdress = gestionCodeRetour.getAPIReturn(adresse, AddressBAN.class).get();
         String pointQuery = newAdress.getFeatures().get(0).getGeometry().toString();
         ParcelleAPI newParcelleQuery = new ParcelleAPI(pointQuery,"geom");
         ResponseManagerHTTP<Parcelle> parcelleResponseManagerHTTP = new ResponseManagerHTTP<>();
@@ -88,9 +88,9 @@ class ResponseManagerHTTPTest {
     void controleGeomutationRetourMultiples () throws IOException, URISyntaxException, UnknownResponseCode {
         String queryAdresse = "202 avenue du Maine";
         AdresseAPI adresse = new AdresseAPI(queryAdresse);
-        ResponseManagerHTTP<AdresseBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
-        AdresseBAN adresseBAN = gestionCodeRetour.getAPIReturn(adresse, AdresseBAN.class).get();
-        String pointQuery = adresseBAN.getFeatures().get(0).getGeometry().toString();
+        ResponseManagerHTTP<AddressBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
+        AddressBAN addressBAN = gestionCodeRetour.getAPIReturn(adresse, AddressBAN.class).get();
+        String pointQuery = addressBAN.getFeatures().get(0).getGeometry().toString();
         ParcelleAPI newParcelleQuery = new ParcelleAPI(pointQuery,"geom");
 
         ResponseManagerHTTP<Parcelle> parcelleResponseManagerHTTP = new ResponseManagerHTTP<>();
@@ -109,9 +109,9 @@ class ResponseManagerHTTPTest {
     void controleGeomutationRetourVide() throws IOException, URISyntaxException, UnknownResponseCode {
         String queryAdresse = "31 avenue du Bas Meudon";
         AdresseAPI adresse = new AdresseAPI(queryAdresse);
-        ResponseManagerHTTP<AdresseBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
-        AdresseBAN adresseBAN = gestionCodeRetour.getAPIReturn(adresse, AdresseBAN.class).get();
-        String pointQuery = adresseBAN.getFeatures().get(0).getGeometry().toString();
+        ResponseManagerHTTP<AddressBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
+        AddressBAN addressBAN = gestionCodeRetour.getAPIReturn(adresse, AddressBAN.class).get();
+        String pointQuery = addressBAN.getFeatures().get(0).getGeometry().toString();
         ParcelleAPI newParcelleQuery = new ParcelleAPI(pointQuery,"geom");
 
         ResponseManagerHTTP<Parcelle> parcelleResponseManagerHTTP = new ResponseManagerHTTP<>();

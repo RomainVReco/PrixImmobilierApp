@@ -5,8 +5,8 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.priximmo.exceptions.NoParcelleException;
-import com.priximmo.geojson.adresseban.AdresseBAN;
-import com.priximmo.geojson.adresseban.FeatureAdresseBAN;
+import com.priximmo.geojson.adresseban.AddressBAN;
+import com.priximmo.geojson.adresseban.FeatureAddressBAN;
 import com.priximmo.geojson.parcelle.Parcelle;
 import com.priximmo.servicepublicapi.ParcelleAPI;
 
@@ -19,9 +19,9 @@ public class FindMutationParcelle extends FindMutation {
 
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     public FindMutationParcelle () throws IOException, URISyntaxException {
-        FeatureAdresseBAN adressToLook = new FeatureAdresseBAN() ;
+        FeatureAddressBAN adressToLook = new FeatureAddressBAN() ;
         while (!hasFoundAddress){
-            AdresseBAN listOfAdress = getAdressFromQuery();
+            AddressBAN listOfAdress = getAdressFromQuery();
             if (listOfAdress.getFeatures().size()>0){
                 adressToLook = selectAdressInList(listOfAdress);
                 hasFoundAddress = true;
@@ -37,7 +37,7 @@ public class FindMutationParcelle extends FindMutation {
         } else getGeomutationsFromTerrain(bbox, cityCode);
     }
 
-    private String getCityCodeFromAdress(FeatureAdresseBAN adressToLook) {
+    private String getCityCodeFromAdress(FeatureAddressBAN adressToLook) {
         return adressToLook.getProperties().getCitycode();
     }
 

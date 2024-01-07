@@ -2,10 +2,10 @@ package com.priximmo.geojson.adresseban;
 
 import com.priximmo.geojson.geometry.GeometryPoint;
 
-public class FeatureAdresseBAN {
+public class FeatureAddressBAN {
     String type;
     GeometryPoint geometry;
-    AdressProperties properties;
+    AddressProperties properties;
 
     public String getType() {
         return type;
@@ -19,11 +19,11 @@ public class FeatureAdresseBAN {
         this.geometry = geometry;
     }
 
-    public AdressProperties getProperties() {
+    public AddressProperties getProperties() {
         return properties;
     }
 
-    public void setProperties(AdressProperties properties) {
+    public void setProperties(AddressProperties properties) {
         this.properties = properties;
     }
 
