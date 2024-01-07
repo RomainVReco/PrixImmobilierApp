@@ -2,6 +2,7 @@ package com.priximmo.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
 import com.priximmo.adapter.AddressAdapter
@@ -22,8 +23,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        addressAdapter = AddressAdapter(mList)
         recyclerView = findViewById(R.id.mainActivityRecycler)
-
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = addressAdapter
 
         searchView = findViewById(R.id.searchBarId)
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -47,14 +50,14 @@ class MainActivity : AppCompatActivity() {
         }
 
     private fun fillAddressList(listOfAddress: AddressBAN) {
+        mList.clear()
         if (listOfAddress.features.size > 0) {
             for (addressFeature in listOfAddress.features) {
                 var addressSample = AddressData(addressFeature.properties.label, addressFeature.properties.context,
                     addressFeature.geometry.toString())
-                mList.add(addressSample)
+                mList.add(addressSample )
             }
+            addressAdapter.setResultSet(mList)
+        }
     }
-
-
-}
 }
