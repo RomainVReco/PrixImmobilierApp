@@ -11,13 +11,8 @@ import com.priximmo.R
 import com.priximmo.adapter.AddressAdapter
 import com.priximmo.dataclass.AddressData
 import com.priximmo.dataclass.AddressResponse
-import com.priximmo.geojson.adresseban.AddressBAN
-import com.priximmo.model.ResponseManagerHTTP
-import com.priximmo.servicepublicapi.AdresseAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,7 +26,7 @@ MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView : SearchView
     private lateinit var addressAdapter: AddressAdapter
-    private var mList = ArrayList<AddressData>()
+    private var mList : MutableList<AddressData> = ArrayList()
     private val Tag: String = "MainActivity"
 
 
@@ -77,14 +72,15 @@ MainActivity : AppCompatActivity() {
 
     private fun fillAddressList(listOfAddress: AddressResponse) {
         Log.d(Tag, "fillAddressList")
-        mList.clear()
-        if (listOfAddress.features.isNotEmpty()) {
+        var listAddressSample: MutableList<AddressData> = ArrayList()
+        if (listOfAddress.features.size>0) {
             for (addressFeature in listOfAddress.features) {
                 var addressSample = AddressData(addressFeature.properties.label, addressFeature.properties.context,
                     addressFeature.geometry.toString())
-                mList.add(addressSample )
+                listAddressSample.add(addressSample)
+                Log.d("AdressSample", addressSample.toString())
             }
-            addressAdapter.setResultSet(mList)
+            addressAdapter.setResultSet(listAddressSample)
             Log.d(Tag, "Fin fillAddressList")
         }
     }
@@ -108,7 +104,6 @@ MainActivity : AppCompatActivity() {
                     if (addressResponse != null) {
                         fillAddressList(addressResponse)
                     }
-                    println("API Response: $addressResponse")
                 } else {
                     println("API request failed. Response Code: ${response.code()}")
                 }
