@@ -4,6 +4,7 @@ import AddressService
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
@@ -18,17 +19,17 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity() {
+class
+MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var searchView : androidx.appcompat.widget.SearchView
+    private lateinit var searchView : SearchView
     private lateinit var addressAdapter: AddressAdapter
     private var mList = ArrayList<AddressData>()
     private val Tag: String = "MainActivity"
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = addressAdapter
 
         searchView = findViewById(R.id.searchBarId)
-        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 queryAddressFromText(query)
                 return true
@@ -84,6 +85,7 @@ class MainActivity : AppCompatActivity() {
                 mList.add(addressSample )
             }
             addressAdapter.setResultSet(mList)
+            Log.d(Tag, "Fin fillAddressList")
         }
     }
 
@@ -94,9 +96,6 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         val service = retrofit.create(AddressService::class.java)
-
-        // Replace "your_query" with the actual query provided by the user
-        val query = query
 
         val call = service.searchAddress(query)
         call.enqueue(object : Callback<AddressResponse> {
