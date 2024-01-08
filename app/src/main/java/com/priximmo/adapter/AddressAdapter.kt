@@ -26,7 +26,7 @@ class AddressAdapter (private var listAddressData: MutableList<AddressData>): Re
         return ViewHolder(viewitem)
     }
 
-    override fun onBindViewHolder(holder: AddressAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d(Tag, "onBindViewHolder")
         holder.labelAddress.text = listAddressData[position].label
         holder.contextAddress.text = listAddressData[position].context
