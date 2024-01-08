@@ -8,7 +8,7 @@ import com.priximmo.exceptions.NoParcelleException;
 import com.priximmo.geojson.adresseban.AddressBAN;
 import com.priximmo.geojson.adresseban.FeatureAddressBAN;
 import com.priximmo.geojson.parcelle.Parcelle;
-import com.priximmo.servicepublicapi.parcelle.ParcelleAPI;
+import com.priximmo.servicepublicapi.ParcelleAPI;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

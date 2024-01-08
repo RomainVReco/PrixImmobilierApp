@@ -16,7 +16,7 @@
         android:theme="@style/Theme.PrixImmo"
         tools:targetApi="31">
         <activity
-            android:name=".activities.mutationActivity"
+            android:name=".activities.MutationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

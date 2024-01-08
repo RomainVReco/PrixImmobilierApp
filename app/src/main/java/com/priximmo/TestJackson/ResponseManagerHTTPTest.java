@@ -12,7 +12,7 @@ import com.priximmo.geojson.mutation.Mutation;
 import com.priximmo.geojson.parcelle.Parcelle;
 import com.priximmo.model.ResponseManagerHTTP;
 import com.priximmo.servicepublicapi.*;
-import com.priximmo.servicepublicapi.parcelle.ParcelleAPI;
+import com.priximmo.servicepublicapi.ParcelleAPI;
 
 import org.junit.jupiter.api.Test;
 

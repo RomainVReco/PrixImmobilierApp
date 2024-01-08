@@ -1,4 +1,4 @@
-package com.priximmo.servicepublicapi.parcelle;
+package com.priximmo.servicepublicapi;
 
 import com.priximmo.servicepublicapi.AbstractRequestAPI;
 import com.priximmo.servicepublicapi.ConverterURL;

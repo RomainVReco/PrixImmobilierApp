@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.priximmo.geojson.parcelle.Parcelle;
-import com.priximmo.servicepublicapi.parcelle.ParcelleAPI;
+import com.priximmo.servicepublicapi.ParcelleAPI;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

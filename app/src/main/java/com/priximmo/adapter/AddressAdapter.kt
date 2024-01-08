@@ -1,5 +1,6 @@
 package com.priximmo.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,8 @@ class AddressAdapter (private var listAddressData: MutableList<AddressData>): Re
         holder.labelAddress.text = listAddressData[position].label
         holder.contextAddress.text = listAddressData[position].context
         holder.container.setOnClickListener{ view ->
-            Toast.makeText(holder.itemView.context, listAddressData[position].geometry, Toast.LENGTH_SHORT).show()
+            Log.d(Tag, "ClickOnAddress")
+            AddressData.launchDetailAddressActivity(listAddressData[position], view)
         }
     }
 

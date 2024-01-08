@@ -1,4 +1,4 @@
-package com.priximmo.servicepublicapi.parcelle
+package com.priximmo.retrofitapi
 
 import com.priximmo.geojson.parcelle.Parcelle
 import retrofit2.Call

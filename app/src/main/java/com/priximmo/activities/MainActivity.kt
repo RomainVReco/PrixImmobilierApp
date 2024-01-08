@@ -1,6 +1,6 @@
 package com.priximmo.activities
 
-import AddressService
+import com.priximmo.retrofitapi.AddressService
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
 import com.priximmo.adapter.AddressAdapter
 import com.priximmo.dataclass.addressBAN.AddressData
-import com.priximmo.dataclass.addressBAN.AddressResponse
+import com.priximmo.geojson.adresseban.AddressBAN
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -64,13 +64,13 @@ MainActivity : AppCompatActivity() {
 //            fillAddressList(optionalAdressBan.orElse(AddressBAN()))
             if (query != null) {
                 Log.d(Tag, "QueryNotNull")
-                main(query)
+                callAddressAPI(query)
             }
             Log.d(Tag, "QueryNull")
         }
     }
 
-    private fun fillAddressList(listOfAddress: AddressResponse) {
+    private fun fillAddressList(listOfAddress: AddressBAN) {
         Log.d(Tag, "fillAddressList")
         var listAddressSample: MutableList<AddressData> = ArrayList()
         if (listOfAddress.features.size>0) {
@@ -85,7 +85,7 @@ MainActivity : AppCompatActivity() {
         }
     }
 
-    fun main(query: String) {
+    fun callAddressAPI(query: String) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api-adresse.data.gouv.fr/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -94,8 +94,8 @@ MainActivity : AppCompatActivity() {
         val service = retrofit.create(AddressService::class.java)
 
         val call = service.searchAddress(query)
-        call.enqueue(object : Callback<AddressResponse> {
-            override fun onResponse(call: Call<AddressResponse>, response: Response<AddressResponse>) {
+        call.enqueue(object : Callback<AddressBAN> {
+            override fun onResponse(call: Call<AddressBAN>, response: Response<AddressBAN>) {
                 if (response.isSuccessful) {
                     Log.d(Tag, response.code().toString())
                     Log.d(Tag, response.message().toString())
@@ -109,7 +109,8 @@ MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<AddressResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AddressBAN>, t: Throwable) {
+                Log.d(Tag, "onFailure")
                 t.printStackTrace()
             }
         })
