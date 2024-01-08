@@ -12,15 +12,15 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 public abstract class AbstractRequestAPI {
-    Config config;
+    protected Config config;
 
-    HttpsURLConnection conn;
+    protected HttpsURLConnection conn;
 
-    public AbstractRequestAPI() {
+    protected AbstractRequestAPI() {
 
     }
 
-    protected HttpsURLConnection getRequestResult(URL url) throws IOException {
+    public HttpsURLConnection getRequestResult(URL url) throws IOException {
         HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setDoOutput(true);

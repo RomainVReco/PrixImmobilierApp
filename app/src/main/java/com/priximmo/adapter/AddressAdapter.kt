@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
-import com.priximmo.dataclass.AddressData
+import com.priximmo.dataclass.addressBAN.AddressData
 
 class AddressAdapter (private var listAddressData: MutableList<AddressData>): RecyclerView.Adapter<AddressAdapter.ViewHolder>() {
     val Tag: String = "AddressAdapter"

@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
 import com.priximmo.adapter.AddressAdapter
-import com.priximmo.dataclass.AddressData
-import com.priximmo.dataclass.AddressResponse
+import com.priximmo.dataclass.addressBAN.AddressData
+import com.priximmo.dataclass.addressBAN.AddressResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

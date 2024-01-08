@@ -1,4 +1,4 @@
-package com.priximmo.dataclass
+package com.priximmo.dataclass.addressBAN
 
 data class AddressResponse(
     val type: String,

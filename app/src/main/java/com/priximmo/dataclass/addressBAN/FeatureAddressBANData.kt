@@ -1,4 +1,4 @@
-package com.priximmo.dataclass
+package com.priximmo.dataclass.addressBAN
 
 
 import com.priximmo.geojson.geometry.GeometryPoint
