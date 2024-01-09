@@ -2,6 +2,7 @@ package com.priximmo.geojson.adresseban;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -10,11 +11,11 @@ import java.util.List;
 * */
 
 public class AddressBAN {
-    @JsonProperty("type")
+    @SerializedName("type")
     String type;
-    @JsonProperty("version")
+    @SerializedName("version")
     String version;
-    @JsonProperty("features")
+    @SerializedName("features")
     List<FeatureAddressBAN> featureAddressBAN;
     String attribution;
     String licence;

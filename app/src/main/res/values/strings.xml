@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PrixImmo</string>
+    <string name="parcelle_title">Adresse sélectionnée : %s</string>
 </resources>
