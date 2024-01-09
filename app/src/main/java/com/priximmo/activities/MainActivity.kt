@@ -49,19 +49,18 @@ MainActivity : AppCompatActivity() {
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.length>4){
+                    queryAddressFromText(newText)
+                    return true
+                }
                 return false
             }
-
         })
     }
 
     private fun queryAddressFromText(query: String?) {
         GlobalScope.launch(Dispatchers.IO) {
-//            val callAddressAPI = AdresseAPI(query)
-//            val responseManager = ResponseManagerHTTP<AddressBAN>()
-//            val optionalAdressBan = responseManager.getAPIReturn(callAddressAPI, AddressBAN::class.java)
-//            fillAddressList(optionalAdressBan.orElse(AddressBAN()))
             if (query != null) {
                 Log.d(Tag, "QueryNotNull")
                 callAddressAPI(query)
@@ -115,5 +114,4 @@ MainActivity : AppCompatActivity() {
             }
         })
     }
-
 }

@@ -15,7 +15,7 @@ class MutationActivity : AppCompatActivity() {
     lateinit var addressData: AddressData
     lateinit var recyclerMutation: RecyclerView
     lateinit var mutationAdapter: MutationAdapter
-    var listofMutation: MutableList<GeoMutationData> = MutableList()
+//    var listofMutation: MutableList<GeoMutationData> = MutableList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(Tag, "onCreate")
