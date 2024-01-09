@@ -97,7 +97,6 @@ MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<AddressBAN>, response: Response<AddressBAN>) {
                 if (response.isSuccessful) {
                     Log.d(Tag, response.code().toString())
-                    Log.d(Tag, response.message().toString())
                     Log.d(Tag, response.body().toString())
                     val addressResponse = response.body()
                     if (addressResponse != null) {

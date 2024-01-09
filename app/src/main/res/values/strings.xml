@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">PrixImmo</string>
     <string name="parcelle_title">Adresse sélectionnée : %s</string>
+    <string name="libTypBien">Type de bien : %s</string>
+    <string name="valeurFonciere">Type de bien : %s</string>
+    <string name="surfaceBien">Surface : %s</string>
+    <string name="nombreLot">Nombre de lot : %s</string>
+    <string name="venteVEFA">Vefa : %s</string>
+    <string name="referenceParcelle">Parcelle : %s</string>
+
 </resources>

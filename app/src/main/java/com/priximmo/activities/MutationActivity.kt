@@ -26,5 +26,6 @@ class MutationActivity : AppCompatActivity() {
         parcelleTitle.text = getString(R.string.parcelle_title, addressData.label)
 
 
+
     }
 }
