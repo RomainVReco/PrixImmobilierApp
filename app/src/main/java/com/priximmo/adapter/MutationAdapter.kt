@@ -31,11 +31,11 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
         Log.d(Tag, "onBindViewHolder")
         val context = holder.itemView.context
         holder.natureOperation.text = context.getString(R.string.libTypBien, listGeomutation[position].libTypBien)
-        holder.valeurFonciere.text = context.getString(R.string.libTypBien, listGeomutation[position].valeurFonciere)
-        holder.surfaceBien.text = context.getString(R.string.libTypBien, listGeomutation[position].valeurFonciere)
-        holder.nombreLot.text = context.getString(R.string.libTypBien, listGeomutation[position].nombreLot)
-        holder.venteVefa.text = context.getString(R.string.libTypBien, listGeomutation[position].venteVefa)
-        holder.referenceParcelle.text = context.getString(R.string.libTypBien, listGeomutation[position].referenceParcelle)
+        holder.valeurFonciere.text = context.getString(R.string.valeurFonciere, listGeomutation[position].valeurFonciere)
+        holder.surfaceBien.text = context.getString(R.string.surfaceBien, listGeomutation[position].valeurFonciere)
+        holder.nombreLot.text = context.getString(R.string.nombreLot, listGeomutation[position].nombreLot)
+        holder.venteVefa.text = context.getString(R.string.venteVEFA, listGeomutation[position].venteVefa)
+        holder.referenceParcelle.text = context.getString(R.string.referenceParcelle, listGeomutation[position].referenceParcelle)
     }
 
     override fun getItemCount(): Int {
