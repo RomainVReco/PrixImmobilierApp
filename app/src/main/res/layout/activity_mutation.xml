@@ -8,30 +8,32 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMutation"
-        android:layout_width="389dp"
-        android:layout_height="666dp"
+        android:layout_width="0dp"
+        android:layout_height="658dp"
+        android:layout_marginBottom="80dp"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:paddingRight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parcelleAddressTitle"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/item_recycler_mutation_activity" />
 
     <TextView
         android:id="@+id/parcelleAddressTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="Adresse sélectionnée : 1bis rue de la gare 75015 Paris"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerMutation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
