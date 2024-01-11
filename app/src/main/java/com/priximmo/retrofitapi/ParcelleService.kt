@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ParcelleService {
-    @GET("search")
+    @GET("parcelle?")
     fun searchParcelle(@Query("geom=") query: String): Call<Parcelle>
 }

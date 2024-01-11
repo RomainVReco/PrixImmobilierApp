@@ -11,6 +11,7 @@ data class GeoMutationData(
     val venteVefa: String?,
     val referenceParcelle: String?
 ): Parcelable {
+
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),

@@ -6,8 +6,10 @@ import android.os.Parcelable
 import android.view.View
 import com.priximmo.activities.MutationActivity
 
-data class AddressData(val label: String?, val context: String?, val geometry: String?): Parcelable {
+data class AddressData(val label: String?, val context: String?, val geometry: String?, val postCode: String?): Parcelable {
+
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -16,6 +18,7 @@ data class AddressData(val label: String?, val context: String?, val geometry: S
         parcel.writeString(label)
         parcel.writeString(context)
         parcel.writeString(geometry)
+        parcel.writeString(postCode)
     }
 
     override fun describeContents(): Int {
@@ -36,7 +39,6 @@ data class AddressData(val label: String?, val context: String?, val geometry: S
             val intent = Intent(view.context, MutationActivity::class.java)
             intent.putExtra(keyAddressData, addressData)
             view.context.startActivity(intent)
-
         }
     }
 }

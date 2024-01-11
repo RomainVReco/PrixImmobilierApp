@@ -75,7 +75,7 @@ MainActivity : AppCompatActivity() {
         if (listOfAddress.features.size>0) {
             for (addressFeature in listOfAddress.features) {
                 var addressSample = AddressData(addressFeature.properties.label, addressFeature.properties.context,
-                    addressFeature.geometry.toString())
+                    addressFeature.geometry.toString(), addressFeature.properties.postcode)
                 listAddressSample.add(addressSample)
                 Log.d("AdressSample", addressSample.toString())
             }
