@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.priximmo.geojson.parcelle.Parcelle;
 import com.priximmo.servicepublicapi.ParcelleAPI;
-import com.priximmo.servicepublicapi.parcelle.ParcelleRetrofitAPI;
+import com.priximmo.retrofitapi.parcelle.ParcelleRetrofitAPI;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

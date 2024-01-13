@@ -29,4 +29,12 @@ public class FeuilleAPI extends AbstractRequestAPI {
         this.conn = this.getRequestResult(this.URL);
     }
 
+    public FeuilleAPI(String query, String parameters, int number) throws IOException, URISyntaxException {
+        this.parameters = parameters;
+        String preparedParameter = parameters+"=";
+        String encodedQuery = new ConverterURL(query).getEncodedQuery();
+        URL = new URI(URL_API+preparedParameter+encodedQuery).toURL();
+        this.conn = this.getRequestResult(this.URL);
+    }
+
 }

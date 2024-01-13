@@ -1,4 +1,4 @@
-package com.priximmo.servicepublicapi.parcelle
+package com.priximmo.retrofitapi.address
 
 import com.priximmo.servicepublicapi.RequestInterceptor
 import okhttp3.OkHttpClient
@@ -6,8 +6,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object ParcelleRetrofitAPI {
-    private const val BASE_URL = "https://apicarto.ign.fr/api/cadastre/"
+object AddressRetrofitAPI {
+
+    private const val BASE_URL = "https://api-adresse.data.gouv.fr/"
 
     val okHttpClient = OkHttpClient()
         .newBuilder()
