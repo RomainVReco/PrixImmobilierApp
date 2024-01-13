@@ -13,7 +13,8 @@ import com.priximmo.dataclass.mutation.GeoMutationData
 import com.priximmo.geojson.geomutation.Geomutation
 import com.priximmo.geojson.parcelle.Parcelle
 import com.priximmo.retrofitapi.GeoMutationService
-import com.priximmo.retrofitapi.ParcelleService
+import com.priximmo.retrofitapi.ParcelleAPI
+import com.priximmo.servicepublicapi.parcelle.ParcelleService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -103,31 +104,29 @@ class MutationActivity : AppCompatActivity() {
     private fun getParcelleFromGeometry(geometry: String) {
         Log.d(Tag, "getParcelleFromGeometry")
         GlobalScope.launch(Dispatchers.IO) {
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://apicarto.ign.fr/api/cadastre/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            val parcelleService = ParcelleService(geometry)
+            parcelleService.successfulParcelleResponse()
 
-            val service = retrofit.create(ParcelleService::class.java)
-            val call = service.searchParcelle(geometry)
+//            val service = retrofit.create(ParcelleAPI::class.java)
+//            val call = service.searchParcelle(geometry)
 
-            call.enqueue(object : Callback<Parcelle> {
-                override fun onResponse(call: Call<Parcelle>, response: Response<Parcelle>) {
-                    if (response.isSuccessful) {
-                        Log.d(Tag, response.code().toString())
-                        Log.d(Tag, response.body().toString())
-                        val parcelleResponse = response.body()
-                        if (parcelleResponse != null) {
-                            extractParcelleFromAddress(parcelleResponse)
-                        }
-                    } else Log.d(Tag,"API request failed. Response Code: ${response.code()}")
-                }
-
-                override fun onFailure(call: Call<Parcelle>, t: Throwable) {
-                    Log.d(Tag, "onFailure")
-                    t.printStackTrace()
-                }
-            })
+//            call.enqueue(object : Callback<Parcelle> {
+//                override fun onResponse(call: Call<Parcelle>, response: Response<Parcelle>) {
+//                    if (response.isSuccessful) {
+//                        Log.d(Tag, response.code().toString())
+//                        Log.d(Tag, response.body().toString())
+//                        val parcelleResponse = response.body()
+//                        if (parcelleResponse != null) {
+//                            extractParcelleFromAddress(parcelleResponse)
+//                        }
+//                    } else Log.d(Tag,"API request failed. Response Code: ${response.code()}")
+//                }
+//
+//                override fun onFailure(call: Call<Parcelle>, t: Throwable) {
+//                    Log.d(Tag, "onFailure")
+//                    t.printStackTrace()
+//                }
+//            })
         }
     }
 }
