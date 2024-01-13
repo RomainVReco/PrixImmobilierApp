@@ -39,7 +39,6 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
     }
 
     override fun getItemCount(): Int {
-        Log.d(Tag, "getItemCount : "+listGeomutation.size)
         return  listGeomutation.size
     }
 

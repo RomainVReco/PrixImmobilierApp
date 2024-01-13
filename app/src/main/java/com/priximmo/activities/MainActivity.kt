@@ -1,6 +1,6 @@
 package com.priximmo.activities
 
-import com.priximmo.retrofitapi.AddressService
+import com.priximmo.retrofitapi.address.AddressAPI
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -90,7 +90,7 @@ MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val service = retrofit.create(AddressService::class.java)
+        val service = retrofit.create(AddressAPI::class.java)
 
         val call = service.searchAddress(query)
         call.enqueue(object : Callback<AddressBAN> {

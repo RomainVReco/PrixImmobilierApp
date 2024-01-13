@@ -38,7 +38,6 @@ class AddressAdapter (private var listAddressData: MutableList<AddressData>): Re
     }
 
     override fun getItemCount(): Int {
-        Log.d(Tag, "getItemCount : "+listAddressData.size)
         return listAddressData.size
     }
 
