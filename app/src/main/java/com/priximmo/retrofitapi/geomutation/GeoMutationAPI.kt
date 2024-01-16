@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface GeoMutationAPI {
     @GET("geomutations/?")
-    fun searchGeomutation(@Query("anneemut_min=") anneeMutMin:String, @Query("in_bbox=") bbox:String, @Query("code_insee=") codeInsee:String): Call<Geomutation>
+    fun searchGeomutation(@Query("anneemut_min") anneeMutMin:String, @Query("in_bbox") bbox:String, @Query("code_insee") codeInsee:String): Call<Geomutation>
 }

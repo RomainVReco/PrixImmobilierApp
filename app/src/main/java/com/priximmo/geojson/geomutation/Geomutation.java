@@ -1,19 +1,20 @@
 package com.priximmo.geojson.geomutation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class Geomutation {
-    @JsonProperty("type")
+    @SerializedName("type")
     private String type;
-    @JsonProperty("count")
+    @SerializedName("count")
     private int count;
-    @JsonProperty("next")
+    @SerializedName("next")
     private String next;
-    @JsonProperty("previous")
+    @SerializedName("previous")
     private String previous;
-    @JsonProperty("features")
+    @SerializedName("features")
     private List<FeatureMutation> features;
 
     public String getType() {
