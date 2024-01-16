@@ -20,6 +20,7 @@ import com.priximmo.geojson.parcelle.Parcelle
 import com.priximmo.geojson.parcelle.SimplifiedParcelle
 import com.priximmo.model.ResponseManagerHTTP
 import com.priximmo.retrofitapi.geomutation.GeoMutationAPI
+import com.priximmo.retrofitapi.geomutation.GeomutationRetrofitAPI
 import com.priximmo.servicepublicapi.CommuneAPI
 import com.priximmo.servicepublicapi.FeuilleAPI
 import com.priximmo.servicepublicapi.GeomutationAPI
@@ -98,10 +99,7 @@ class MutationActivity : AppCompatActivity() {
         var geomutation: Geomutation
         val currentYear = LocalDateTime.now().year
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://apidf-preprod.cerema.fr/dvf_opendata/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val retrofit = GeomutationRetrofitAPI.getClient()
 
         val apiService = retrofit.create(GeoMutationAPI::class.java)
 
