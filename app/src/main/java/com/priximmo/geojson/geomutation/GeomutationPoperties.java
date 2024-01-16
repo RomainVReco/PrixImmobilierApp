@@ -1,6 +1,7 @@
 package com.priximmo.geojson.geomutation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -15,18 +16,18 @@ public class GeomutationPoperties {
     private boolean vefa;
     private float valeurfonc;
     private int nbcomm;
-    @JsonProperty("l_codinsee")
+    @SerializedName("l_codinsee")
     private List<String> lCodinsee;
     private int nbpar ;
-    @JsonProperty("l_idpar")
+    @SerializedName("l_idpar")
     private List<String> lIdpar;
     private int nbparmut;
-    @JsonProperty("l_idparmut")
+    @SerializedName("l_idparmut")
     private List<String> lIdparmut;
     private float sterr;
     private int nbvolmut;
     private int nblocmut;
-    @JsonProperty ("l_idlocmut")
+    @SerializedName ("l_idlocmut")
     private List<String> lIdlocmut;
     private float sbati;
     private String codtypbien;

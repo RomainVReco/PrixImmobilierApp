@@ -2,19 +2,20 @@ package com.priximmo.geojson.geomutation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.google.gson.annotations.SerializedName;
 import com.priximmo.geojson.geometry.GeometryPolygon;
 
 public class FeatureMutation {
     /**
      * L'id correspond à l'idmutation
      */
-   @JsonProperty("id")
+   @SerializedName("id")
    private int id;
-   @JsonProperty("type")
+   @SerializedName("type")
    private String type;
-   @JsonProperty("geometry")
+   @SerializedName("geometry")
    private GeometryPolygon geometry;
-   @JsonProperty("properties")
+   @SerializedName("properties")
    GeomutationPoperties geomutationPoperties;
 
     public int getId() {
