@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
@@ -23,8 +22,6 @@ import com.priximmo.retrofitapi.geomutation.GeoMutationAPI
 import com.priximmo.retrofitapi.geomutation.GeomutationRetrofitAPI
 import com.priximmo.servicepublicapi.CommuneAPI
 import com.priximmo.servicepublicapi.FeuilleAPI
-import com.priximmo.servicepublicapi.GeomutationAPI
-import com.priximmo.servicepublicapi.NextPageAPI
 import com.priximmo.servicepublicapi.ParcelleAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -32,13 +29,10 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.net.URISyntaxException
 import java.time.LocalDateTime
 import java.util.Collections
-import java.util.Optional
 
 
 class MutationActivity : AppCompatActivity() {
@@ -115,10 +109,11 @@ class MutationActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Log.d(Tag, response.code().toString())
                     Log.d(Tag, response.body().toString())
-                    val mutationApiResponse = response.body()
+                    val geomutationApiResponse = response.body()
                     // Process the API response here
-                    if (mutationApiResponse != null) {
-                        println(mutationApiResponse.showGeomutationContent())
+                    if (geomutationApiResponse != null) {
+                        println(geomutationApiResponse.showGeomutationContent())
+                        fillSetOfMutation(geomutationApiResponse)
                     }
                 } else {
                     // Handle unsuccessful response
@@ -136,28 +131,24 @@ class MutationActivity : AppCompatActivity() {
                 println("Network error: ${t.message}")
             }
         })
-//        var callAPI = GeomutationAPI((currentYear-2).toString(), cityCode, bboxOfFeuille)
-//        Log.d(Tag, "GeomutationAPI : "+callAPI.conn.responseCode)
-//        Log.d(Tag, "GeomutationAPI : "+callAPI.conn.responseMessage)
-//        val responseManagerGeomutation = ResponseManagerHTTP<Geomutation>()
-//        val optionalGeomutation: Optional<Geomutation> = responseManagerGeomutation.getAPIReturn(
-//            callAPI,
-//            Geomutation::class.java
-//        )
-//        if (optionalGeomutation.isPresent) {
-//            geomutation = optionalGeomutation.orElse(Geomutation())
-//            println(geomutation.showGeomutationContent())
-//            setOfGeomutations.addAll(geomutation.features)
-//            while (geomutation.getNext() != null) {
-//                var nextPageAPI = NextPageAPI(geomutation.getNext())
-//                geomutation =
-//                    responseManagerGeomutation.getAPIReturn(nextPageAPI, Geomutation::class.java).get()
-//                println(geomutation.showGeomutationContent())
-//                setOfGeomutations.addAll(geomutation.features)
-//            }
-//        } else {
-//            println("Pas de mutation pout cette adresse")
-//        }
+    }
+
+    private fun fillSetOfMutation(geomutationApiResponse: Geomutation) {
+        Log.d(Tag, "fillSetOfMutation")
+        for (fm in geomutationApiResponse.features) {
+            val libTypBien = fm.geomutationPoperties.libtypbien
+            val valeurFonciere = fm.geomutationPoperties.valeurfonc.toString() + " €"
+            val surfaceBien = fm.geomutationPoperties.sbati.toString() + "m²"
+            val nombreLot = fm.geomutationPoperties.nblocmut
+            val venteVefa = fm.geomutationPoperties.isVefa
+            val referenceParcelle = fm.geomutationPoperties.getlIdpar().toString()
+            val geomutationId = fm.id
+            val geomutationData = GeoMutationData(libTypBien, valeurFonciere, surfaceBien, nombreLot, venteVefa,
+                referenceParcelle, geomutationId)
+            listofMutation.add(geomutationData)
+        }
+        mutationAdapter.setResultSet(listofMutation)
+        Log.d(Tag, "Fin fillSetOfMutation")
     }
 
     @Throws(URISyntaxException::class, IOException::class)

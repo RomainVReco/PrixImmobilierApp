@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
+import com.priximmo.dataclass.addressBAN.AddressData
 import com.priximmo.dataclass.mutation.GeoMutationData
 
 class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>): RecyclerView.Adapter<MutationAdapter.ViewHolder>() {
@@ -32,7 +33,7 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
         val context = holder.itemView.context
         holder.natureOperation.text = context.getString(R.string.libTypBien, listGeomutation[position].libTypBien)
         holder.valeurFonciere.text = context.getString(R.string.valeurFonciere, listGeomutation[position].valeurFonciere)
-        holder.surfaceBien.text = context.getString(R.string.surfaceBien, listGeomutation[position].valeurFonciere)
+        holder.surfaceBien.text = context.getString(R.string.surfaceBien, listGeomutation[position].surfaceBien)
         holder.nombreLot.text = context.getString(R.string.nombreLot, listGeomutation[position].nombreLot)
         holder.venteVefa.text = context.getString(R.string.venteVEFA, listGeomutation[position].venteVefa)
         holder.referenceParcelle.text = context.getString(R.string.referenceParcelle, listGeomutation[position].referenceParcelle)
@@ -41,6 +42,12 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
     override fun getItemCount(): Int {
         return  listGeomutation.size
     }
+
+    fun setResultSet(mList: MutableList<GeoMutationData>) {
+        this.listGeomutation = mList
+        notifyDataSetChanged()
+    }
+
 
 
 }
