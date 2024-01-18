@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Map;
 
 public class FeuilleAPI extends AbstractRequestAPI {
     final String URL_API = "https://apicarto.ign.fr/api/cadastre/feuille?";
@@ -29,11 +30,12 @@ public class FeuilleAPI extends AbstractRequestAPI {
         this.conn = this.getRequestResult(this.URL);
     }
 
-    public FeuilleAPI(String query, String parameters, int number) throws IOException, URISyntaxException {
-        this.parameters = parameters;
-        String preparedParameter = parameters+"=";
-        String encodedQuery = new ConverterURL(query).getEncodedQuery();
-        URL = new URI(URL_API+preparedParameter+encodedQuery).toURL();
+    public FeuilleAPI(Map<String, String> mapOfQueries) throws IOException, URISyntaxException {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, String> entry: mapOfQueries.entrySet()) {
+            sb.append(entry.getKey()).append(new ConverterURL(entry.getValue()).getEncodedQuery()).append("&");
+        }
+        URL = new URI(URL_API+sb.toString()).toURL();
         this.conn = this.getRequestResult(this.URL);
     }
 

@@ -37,7 +37,11 @@ import java.util.Collections
 
 class MutationActivity : AppCompatActivity() {
     val Tag = "mutationActivity"
-    lateinit var addressData: AddressData
+//    lateinit var addressData: AddressData
+
+     var addressData = AddressData("21 Rue du Capitaine Ferber 92130 Issy-les-Moulineaux",
+         "92, Hauts-de-Seine, Île-de-France", "{\"type\": \"Point\",\"coordinates\":[2.266267,48.825897]}",
+    "92130");
     lateinit var recyclerMutation: RecyclerView
     lateinit var mutationAdapter: MutationAdapter
     var listofMutation: MutableList<GeoMutationData> = ArrayList()
@@ -46,7 +50,7 @@ class MutationActivity : AppCompatActivity() {
         Log.d(Tag, "onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mutation)
-        addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
+//        addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)
         parcelleTitle.text = getString(R.string.parcelle_title, addressData.label)
 
@@ -61,7 +65,7 @@ class MutationActivity : AppCompatActivity() {
 
     private fun getParcelleFromGeometry(geometry: String) {
         GlobalScope.launch(Dispatchers.IO) {
-            val callAPI = com.priximmo.servicepublicapi.ParcelleAPI(geometry, "geom=")
+            val callAPI = com.priximmo.servicepublicapi.ParcelleAPI(mutableMapOf<String, String>("geom=" to geometry))
             Log.d(Tag, "getParcelleFromGeometry : "+callAPI.conn.responseCode.toString())
             val responseManager = ResponseManagerHTTP<Parcelle>()
             val parcelle = responseManager.getAPIReturn(callAPI, Parcelle::class.java).orElse(Parcelle())
@@ -71,26 +75,25 @@ class MutationActivity : AppCompatActivity() {
 
     private fun extractGeomutationFromParcelle(parcelleResponse: Parcelle) {
         Log.d(Tag, "extractGeomutationFromParcelle")
-//        val codeInsee = getCodeInseeFromPostCode(addressData.postCode)
-        val codeInsee = addressData.postCode
-        var bbox: String? = parcelleResponse.featuresTerrain[0].terrainProperties.convertBboxToString()
-        Log.d(Tag, bbox!!)
+        val codeInsee = getCodeInseeFromPostCode(addressData.postCode)
+//        val codeInsee = addressData.postCode
+        var bbox: String?
         if (parcelleResponse.numberReturned==0) {
             Log.d(Tag, "no parcelle found with GeometryPoint. Trying with closestParcelle")
             val section: String = getNearestSection(codeInsee, addressData.geometry)
+            Log.d(Tag, section)
             bbox = getParecelleBboxFromSection(codeInsee, section, addressData.geometry!!)
         } else {
-            GlobalScope.launch(Dispatchers.IO) {
-                getGeomutationsFromTerrain(bbox, codeInsee!!)
+            bbox = parcelleResponse.featuresTerrain[0].terrainProperties.convertBboxToString()
             }
+        GlobalScope.launch(Dispatchers.IO) {
+            getGeomutationsFromTerrain(bbox!!, codeInsee!!)
         }
     }
 
     @Throws(URISyntaxException::class, IOException::class)
     fun getGeomutationsFromTerrain(bboxOfFeuille: String, cityCode: String) {
         Log.d(Tag, "getGeomutationsFromTerrain")
-        var setOfGeomutations: MutableList<FeatureMutation> = ArrayList()
-        var geomutation: Geomutation
         val currentYear = LocalDateTime.now().year
 
         val retrofit = GeomutationRetrofitAPI.getClient()
@@ -110,7 +113,6 @@ class MutationActivity : AppCompatActivity() {
                     Log.d(Tag, response.code().toString())
                     Log.d(Tag, response.body().toString())
                     val geomutationApiResponse = response.body()
-                    // Process the API response here
                     if (geomutationApiResponse != null) {
                         println(geomutationApiResponse.showGeomutationContent())
                         fillSetOfMutation(geomutationApiResponse)
@@ -170,7 +172,9 @@ class MutationActivity : AppCompatActivity() {
         NoParcelleException::class
     )
     fun getNearestSection(cityCode: String?, geometryPoint: String?): String {
-        var callAPI = FeuilleAPI(cityCode, geometryPoint, 2)
+        Log.d(Tag, "getNearestSection")
+        val mapOfQueries = mutableMapOf("code_insee=" to cityCode, "geom=" to geometryPoint)
+        val callAPI = FeuilleAPI(mapOfQueries)
         val feuilleResponseManagerHTTP = ResponseManagerHTTP<Feuille>()
         val optionalFeuille = feuilleResponseManagerHTTP.getAPIReturn(
             callAPI,
@@ -181,9 +185,6 @@ class MutationActivity : AppCompatActivity() {
         } else throw NoParcelleException("Pas de section trouvée")
     }
 
-
-
-
     @Throws(
         IOException::class,
         URISyntaxException::class,
@@ -191,7 +192,7 @@ class MutationActivity : AppCompatActivity() {
     )
     fun getParecelleBboxFromSection(cityCode: String?, section: String?, geometryPoint: String): String? {
         Log.d(Tag, "getParecelleBboxFromSection")
-        var callAPI = ParcelleAPI(cityCode, section)
+        var callAPI = ParcelleAPI(mutableMapOf("code_insee=" to cityCode, "section=" to section))
         val parcelleResponseManagerHTTP = ResponseManagerHTTP<Parcelle>()
         val optionalParcelle = parcelleResponseManagerHTTP.getAPIReturn(callAPI, Parcelle::class.java)
         return if (optionalParcelle.isPresent) {
@@ -200,13 +201,11 @@ class MutationActivity : AppCompatActivity() {
         } else throw NoParcelleException("Pas de parcelle trouvée")
     }
 
-
-
     fun checkForNearestParcelle(parcelleToReview: Parcelle, geometryPoint: String): String? {
         Log.d(Tag, "checkForNearestParcelle")
-        var longLat: List<Double> = java.util.ArrayList()
+        var longLat: List<Double> = ArrayList()
         longLat = extractLatitudeLongitude(geometryPoint)
-        val simplifiedParcelleList: MutableList<SimplifiedParcelle> = java.util.ArrayList()
+        val simplifiedParcelleList: MutableList<SimplifiedParcelle> = ArrayList()
         for (featureTerrain in parcelleToReview.featuresTerrain) {
             val subparcelle = SimplifiedParcelle()
             subparcelle.bbox = featureTerrain.terrainProperties.bbox
@@ -226,7 +225,8 @@ class MutationActivity : AppCompatActivity() {
         }
         Collections.sort(simplifiedParcelleList, OrderByDistanceReference())
         println(simplifiedParcelleList[0].toString())
-        return simplifiedParcelleList[0].convertedBbox
+        val bbox = simplifiedParcelleList[0].convertedBbox
+        return bbox
     }
 
     private fun extractLatitudeLongitude(geometryPoint: String): List<Double> {

@@ -13,6 +13,8 @@ import com.priximmo.servicepublicapi.ParcelleAPI;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class FindMutationParcelle extends FindMutation {
@@ -52,7 +54,7 @@ public class FindMutationParcelle extends FindMutation {
 
     private String getBboxFromParcelle(String geometryPoint) throws IOException, URISyntaxException {
         ResponseManagerHTTP<Parcelle> responseManagerParcelle = new ResponseManagerHTTP<>();
-        callAPI = new ParcelleAPI(geometryPoint, "geom=");
+        callAPI = new ParcelleAPI(Map.of("geom=", geometryPoint));
         Optional<Parcelle> optionalParcelle = responseManagerParcelle.getAPIReturn(callAPI, Parcelle.class);
         if (optionalParcelle.isPresent()){
             return optionalParcelle.get().convertBboxToString();
@@ -60,7 +62,11 @@ public class FindMutationParcelle extends FindMutation {
     }
 
     public String getParecelleBboxFromSection(String cityCode, String section, String geometryPoint) throws IOException, URISyntaxException, NoParcelleException {
-        callAPI = new ParcelleAPI(cityCode, section);
+        HashMap mapOfQueries = new HashMap<>();
+        mapOfQueries.put("code_insee=", cityCode);
+        mapOfQueries.put("section=", section);
+        mapOfQueries.put("geom=", geometryPoint);
+        callAPI = new ParcelleAPI(mapOfQueries);
         ResponseManagerHTTP<Parcelle> parcelleResponseManagerHTTP = new ResponseManagerHTTP<>();
         Optional<Parcelle> optionalParcelle = parcelleResponseManagerHTTP.getAPIReturn(callAPI, Parcelle.class);
         if (optionalParcelle.isPresent()) {

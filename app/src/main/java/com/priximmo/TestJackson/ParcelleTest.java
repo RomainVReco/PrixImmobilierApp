@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 class ParcelleTest {
 
@@ -18,7 +19,7 @@ class ParcelleTest {
     void convertBboxToString() throws IOException, URISyntaxException {
         ObjectMapper anotherMapper = new ObjectMapper();
         String queryParcelle = "{\"type\": \"Point\",\"coordinates\": [2.32557,48.830378]}";
-        ParcelleAPI parcelleAPI = new ParcelleAPI(queryParcelle, "geom");
+        ParcelleAPI parcelleAPI = new ParcelleAPI(Map.of("geom=", queryParcelle));
         String jsonParcelle = parcelleAPI.readReponseFromAPI(parcelleAPI.getConn());
         Parcelle parcelle = anotherMapper.readValue(jsonParcelle, Parcelle.class);
         String bboxAvMaine = parcelle.convertBboxToString();
