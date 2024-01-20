@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -61,7 +62,7 @@ class ResponseManagerHTTPTest {
         ResponseManagerHTTP<AddressBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
         AddressBAN newAdress = gestionCodeRetour.getAPIReturn(adresse, AddressBAN.class).get();
         String pointQuery = newAdress.getFeatures().get(0).getGeometry().toString();
-        ParcelleAPI newParcelleQuery = new ParcelleAPI(pointQuery,"geom");
+        ParcelleAPI newParcelleQuery = new ParcelleAPI(Map.of("geom=", pointQuery));
         ResponseManagerHTTP<Parcelle> parcelleResponseManagerHTTP = new ResponseManagerHTTP<>();
         Optional<Parcelle> optionalParcelle = parcelleResponseManagerHTTP.getAPIReturn(newParcelleQuery, Parcelle.class);
         assertTrue(optionalParcelle.isPresent());
@@ -70,7 +71,7 @@ class ResponseManagerHTTPTest {
 
     @Test
     void controleParcelleRetourMultiples() throws IOException, URISyntaxException, UnknownResponseCode {
-        ParcelleAPI newParcelleQuery = new ParcelleAPI("CJ","section");
+        ParcelleAPI newParcelleQuery = new ParcelleAPI(Map.of("CJ=","section" ));
         ResponseManagerHTTP<Parcelle> gestionCodeRetour = new ResponseManagerHTTP<>();
         Parcelle newParcelle = gestionCodeRetour.getAPIReturn(newParcelleQuery, Parcelle.class).get();
         assertTrue(newParcelle.getNumberReturned()>1);
@@ -78,7 +79,7 @@ class ResponseManagerHTTPTest {
 
     @Test
     void controleParcelleRetourVide() throws IOException, URISyntaxException, UnknownResponseCode {
-        ParcelleAPI newParcelleQuery = new ParcelleAPI("##","section");
+        ParcelleAPI newParcelleQuery = new ParcelleAPI(Map.of("section=","##"));
         ResponseManagerHTTP<Parcelle> gestionCodeRetour = new ResponseManagerHTTP<>();
         Optional<Parcelle> newParcelle = gestionCodeRetour.getAPIReturn(newParcelleQuery, Parcelle.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -93,7 +94,7 @@ class ResponseManagerHTTPTest {
         ResponseManagerHTTP<AddressBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
         AddressBAN addressBAN = gestionCodeRetour.getAPIReturn(adresse, AddressBAN.class).get();
         String pointQuery = addressBAN.getFeatures().get(0).getGeometry().toString();
-        ParcelleAPI newParcelleQuery = new ParcelleAPI(pointQuery,"geom");
+        ParcelleAPI newParcelleQuery = new ParcelleAPI(Map.of("geom=", pointQuery));
 
         ResponseManagerHTTP<Parcelle> parcelleResponseManagerHTTP = new ResponseManagerHTTP<>();
         Parcelle newParcelle = parcelleResponseManagerHTTP.getAPIReturn(newParcelleQuery, Parcelle.class).get();
@@ -114,7 +115,7 @@ class ResponseManagerHTTPTest {
         ResponseManagerHTTP<AddressBAN> gestionCodeRetour = new ResponseManagerHTTP<>();
         AddressBAN addressBAN = gestionCodeRetour.getAPIReturn(adresse, AddressBAN.class).get();
         String pointQuery = addressBAN.getFeatures().get(0).getGeometry().toString();
-        ParcelleAPI newParcelleQuery = new ParcelleAPI(pointQuery,"geom");
+        ParcelleAPI newParcelleQuery = new ParcelleAPI(Map.of("geom=", pointQuery));
 
         ResponseManagerHTTP<Parcelle> parcelleResponseManagerHTTP = new ResponseManagerHTTP<>();
         Parcelle newParcelle = parcelleResponseManagerHTTP.getAPIReturn(newParcelleQuery, Parcelle.class).get();

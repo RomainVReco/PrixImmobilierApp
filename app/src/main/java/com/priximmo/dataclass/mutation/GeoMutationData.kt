@@ -2,23 +2,25 @@ package com.priximmo.dataclass.mutation
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.priximmo.geojson.geomutation.Geomutation
 
 data class GeoMutationData(
     val libTypBien: String?,
     val valeurFonciere: String?,
     val surfaceBien: String?,
-    val nombreLot: String?,
-    val venteVefa: String?,
-    val referenceParcelle: String?
+    val nombreLot: Int?,
+    val venteVefa: Boolean?,
+    val referenceParcelle: String?,
+    val geomutationId: Int?
 ): Parcelable {
-
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
         parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
+        parcel.readValue(Int::class.java.classLoader) as? Int
     ) {
     }
 
@@ -26,9 +28,10 @@ data class GeoMutationData(
         parcel.writeString(libTypBien)
         parcel.writeString(valeurFonciere)
         parcel.writeString(surfaceBien)
-        parcel.writeString(nombreLot)
-        parcel.writeString(venteVefa)
+        parcel.writeValue(nombreLot)
+        parcel.writeValue(venteVefa)
         parcel.writeString(referenceParcelle)
+        parcel.writeValue(geomutationId)
     }
 
     override fun describeContents(): Int {

@@ -88,7 +88,10 @@ public abstract class FindMutation {
     }
 
     public String getNearestSection(String cityCode, String geometryPoint) throws IOException, URISyntaxException, NoParcelleException {
-        callAPI = new FeuilleAPI(cityCode, geometryPoint, 2);
+        HashMap mapOfQueries = new HashMap<>();
+        mapOfQueries.put("code_insee=",cityCode);
+        mapOfQueries.put("geom=",geometryPoint);
+        callAPI = new FeuilleAPI(mapOfQueries);
         ResponseManagerHTTP<Feuille> feuilleResponseManagerHTTP = new ResponseManagerHTTP<>();
         Optional<Feuille> optionalFeuille = feuilleResponseManagerHTTP.getAPIReturn(callAPI, Feuille.class);
         if (optionalFeuille.isPresent() && optionalFeuille.get().getNumberReturned()!=0) {

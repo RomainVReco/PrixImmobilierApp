@@ -9,7 +9,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMutation"
         android:layout_width="0dp"
-        android:layout_height="658dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="80dp"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
@@ -19,14 +20,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/parcelleAddressTitle"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_recycler_mutation_activity" />
 
     <TextView
         android:id="@+id/parcelleAddressTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="Adresse sélectionnée : 1bis rue de la gare 75015 Paris"
