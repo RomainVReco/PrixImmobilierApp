@@ -6,13 +6,13 @@ import android.os.Parcelable
 import android.view.View
 import com.priximmo.activities.MutationActivity
 
-data class AddressData(val label: String?, val context: String?, val geometry: String?, val postCode: String?): Parcelable {
+data class AddressData(val label: String, val context: String, val geometry: String, val postCode: String): Parcelable {
 
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!
     )
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(label)

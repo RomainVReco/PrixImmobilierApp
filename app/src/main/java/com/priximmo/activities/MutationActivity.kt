@@ -2,6 +2,8 @@ package com.priximmo.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,15 +14,15 @@ import com.priximmo.dataclass.addressBAN.AddressData
 import com.priximmo.dataclass.mutation.GeoMutationData
 import com.priximmo.exceptions.NoParcelleException
 import com.priximmo.geojson.feuille.Feuille
-import com.priximmo.geojson.geomutation.FeatureMutation
 import com.priximmo.geojson.geomutation.Geomutation
 import com.priximmo.geojson.parcelle.OrderByDistanceReference
 import com.priximmo.geojson.parcelle.Parcelle
 import com.priximmo.geojson.parcelle.SimplifiedParcelle
 import com.priximmo.model.ResponseManagerHTTP
+import com.priximmo.retrofitapi.commune.CommuneAPI
+import com.priximmo.retrofitapi.commune.CommuneRetrofitAPI
 import com.priximmo.retrofitapi.geomutation.GeoMutationAPI
 import com.priximmo.retrofitapi.geomutation.GeomutationRetrofitAPI
-import com.priximmo.servicepublicapi.CommuneAPI
 import com.priximmo.servicepublicapi.FeuilleAPI
 import com.priximmo.servicepublicapi.ParcelleAPI
 import kotlinx.coroutines.Dispatchers
@@ -44,6 +46,7 @@ class MutationActivity : AppCompatActivity() {
     "92130");
     lateinit var recyclerMutation: RecyclerView
     lateinit var mutationAdapter: MutationAdapter
+    lateinit var progressBar: ProgressBar
     var listofMutation: MutableList<GeoMutationData> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +56,7 @@ class MutationActivity : AppCompatActivity() {
 //        addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)
         parcelleTitle.text = getString(R.string.parcelle_title, addressData.label)
+        progressBar = findViewById(R.id.progressBarMutation)
 
         recyclerMutation = findViewById(R.id.recyclerMutation)
         recyclerMutation.layoutManager = LinearLayoutManager(this)
@@ -150,20 +154,29 @@ class MutationActivity : AppCompatActivity() {
             listofMutation.add(geomutationData)
         }
         mutationAdapter.setResultSet(listofMutation)
+        progressBar.visibility = View.INVISIBLE
         Log.d(Tag, "Fin fillSetOfMutation")
     }
 
     @Throws(URISyntaxException::class, IOException::class)
-    private fun getCodeInseeFromPostCode(postCode: String?): String {
-        if (postCode != null) {
-            Log.d(Tag, postCode)
-        }
-        val callAPI = CommuneAPI(postCode)
-        Log.d(Tag, "Réponse CommuneAPI : "+callAPI.conn.responseCode)
-        Log.d(Tag, "Réponse CommuneAPI : "+callAPI.conn.responseMessage)
-        val jsonResponse: String = callAPI.readReponseFromAPI(callAPI.conn)
-        Log.d(Tag, jsonResponse)
-        return jsonResponse.substring(38, 43)
+    private fun getCodeInseeFromPostCode(postCode: String): String {
+        Log.d(Tag, "getCodeInseeFromPostCode")
+        val retrofitCommuneAPI = CommuneRetrofitAPI.getClient()
+
+        val apiService = retrofitCommuneAPI.create(CommuneAPI::class.java)
+
+        val call = apiService.searchCommune(postCode)
+        Log.d(Tag, "appel API Commune - Récupération code INSEE")
+        val requestUrl = call.request().url().toString()
+        Log.d("ApiUrl", "API URL: $requestUrl")
+
+        val communeAPIResponse = call.execute().body()
+        Log.d(Tag, "Commune API : $communeAPIResponse")
+
+//        val jsonResponse = ""
+//        Log.d(Tag, jsonResponse)
+//        return jsonResponse.substring(38, 43)
+        return TODO("Provide the return value")
     }
 
     @Throws(
