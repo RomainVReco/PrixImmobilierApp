@@ -1,4 +1,4 @@
-package com.priximmo.retrofitapi.geomutation
+package com.priximmo.retrofitapi.commune
 
 import com.priximmo.servicepublicapi.RequestInterceptor
 import okhttp3.OkHttpClient
@@ -7,16 +7,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object GeomutationRetrofitAPI {
-
-    private const val BASE_URL = "https://apidf-preprod.cerema.fr/dvf_opendata/"
+object CommuneRetrofitAPI {
+    private const val BASE_URL = "https://geo.api.gouv.fr/"
 
     val okHttpClient = OkHttpClient()
         .newBuilder()
         .addInterceptor(RequestInterceptor)
-        .connectTimeout(60, TimeUnit.SECONDS)
-        .writeTimeout(60, TimeUnit.SECONDS)
-        .readTimeout(60, TimeUnit.SECONDS)
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
         .build()
 
     fun getClient() : Retrofit =
