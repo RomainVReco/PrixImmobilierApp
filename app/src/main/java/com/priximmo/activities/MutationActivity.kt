@@ -39,11 +39,11 @@ import java.util.Collections
 
 class MutationActivity : AppCompatActivity() {
     val Tag = "mutationActivity"
-//    lateinit var addressData: AddressData
+    lateinit var addressData: AddressData
 
-     var addressData = AddressData("21 Rue du Capitaine Ferber 92130 Issy-les-Moulineaux",
-         "92, Hauts-de-Seine, Île-de-France", "{\"type\": \"Point\",\"coordinates\":[2.266267,48.825897]}",
-    "92130");
+//     var addressData = AddressData("21 Rue du Capitaine Ferber 92130 Issy-les-Moulineaux",
+//         "92, Hauts-de-Seine, Île-de-France", "{\"type\": \"Point\",\"coordinates\":[2.266267,48.825897]}",
+//    "92130");
     lateinit var recyclerMutation: RecyclerView
     lateinit var mutationAdapter: MutationAdapter
     lateinit var progressBar: ProgressBar
@@ -53,7 +53,7 @@ class MutationActivity : AppCompatActivity() {
         Log.d(Tag, "onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mutation)
-//        addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
+        addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)
         parcelleTitle.text = getString(R.string.parcelle_title, addressData.label)
         progressBar = findViewById(R.id.progressBarMutation)
@@ -135,6 +135,7 @@ class MutationActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Geomutation>, t: Throwable) {
                 // Handle network errors
                 println("Network error: ${t.message}")
+                Log.e("Network error: ", "Error : ${t.message}", t)
             }
         })
     }
@@ -166,17 +167,12 @@ class MutationActivity : AppCompatActivity() {
         val apiService = retrofitCommuneAPI.create(CommuneAPI::class.java)
 
         val call = apiService.searchCommune(postCode)
-        Log.d(Tag, "appel API Commune - Récupération code INSEE")
         val requestUrl = call.request().url().toString()
-        Log.d("ApiUrl", "API URL: $requestUrl")
+        Log.d("getCodeInseeFromPostCode", "API URL: $requestUrl")
 
         val communeAPIResponse = call.execute().body()
         Log.d(Tag, "Commune API : $communeAPIResponse")
-
-//        val jsonResponse = ""
-//        Log.d(Tag, jsonResponse)
-//        return jsonResponse.substring(38, 43)
-        return TODO("Provide the return value")
+        return communeAPIResponse!![0].code
     }
 
     @Throws(
@@ -219,6 +215,7 @@ class MutationActivity : AppCompatActivity() {
         var longLat: List<Double> = ArrayList()
         longLat = extractLatitudeLongitude(geometryPoint)
         val simplifiedParcelleList: MutableList<SimplifiedParcelle> = ArrayList()
+        Log.d(Tag, "Debut calcul parcelle la plus proche")
         for (featureTerrain in parcelleToReview.featuresTerrain) {
             val subparcelle = SimplifiedParcelle()
             subparcelle.bbox = featureTerrain.terrainProperties.bbox
@@ -236,6 +233,7 @@ class MutationActivity : AppCompatActivity() {
                 Math.abs(distanceMinLongitude) + Math.abs(distanceMaxLongitude)
             simplifiedParcelleList.add(subparcelle)
         }
+        Log.d(Tag, "Fin du calcul")
         Collections.sort(simplifiedParcelleList, OrderByDistanceReference())
         println(simplifiedParcelleList[0].toString())
         val bbox = simplifiedParcelleList[0].convertedBbox
