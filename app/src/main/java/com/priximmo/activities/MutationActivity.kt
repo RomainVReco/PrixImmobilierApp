@@ -145,12 +145,13 @@ class MutationActivity : AppCompatActivity() {
         for (fm in geomutationApiResponse.features) {
             val libTypBien = fm.geomutationPoperties.libtypbien
             val valeurFonciere = fm.geomutationPoperties.valeurfonc.toString() + " €"
+            val dateCession = fm.geomutationPoperties.datemut
             val surfaceBien = fm.geomutationPoperties.sbati.toString() + "m²"
             val nombreLot = fm.geomutationPoperties.nblocmut
             val venteVefa = fm.geomutationPoperties.isVefa
             val referenceParcelle = fm.geomutationPoperties.getlIdpar().toString()
             val geomutationId = fm.id
-            val geomutationData = GeoMutationData(libTypBien, valeurFonciere, surfaceBien, nombreLot, venteVefa,
+            val geomutationData = GeoMutationData(libTypBien, dateCession, valeurFonciere, surfaceBien, nombreLot, venteVefa,
                 referenceParcelle, geomutationId)
             listofMutation.add(geomutationData)
         }

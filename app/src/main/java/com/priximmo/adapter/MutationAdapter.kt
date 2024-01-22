@@ -16,6 +16,7 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val natureOperation = itemView.findViewById<TextView>(R.id.natureOperation)
         val valeurFonciere = itemView.findViewById<TextView>(R.id.valeurFonciere)
+        val dateCession = itemView.findViewById<TextView>(R.id.dateCession)
         val surfaceBien = itemView.findViewById<TextView>(R.id.surfaceBien)
         val nombreLot = itemView.findViewById<TextView>(R.id.nombreLot)
         val venteVefa = itemView.findViewById<TextView>(R.id.venteVefa)
@@ -33,10 +34,23 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
         val context = holder.itemView.context
         holder.natureOperation.text = context.getString(R.string.libTypBien, listGeomutation[position].libTypBien)
         holder.valeurFonciere.text = context.getString(R.string.valeurFonciere, listGeomutation[position].valeurFonciere)
+        val formatDate = reformatDateCession(listGeomutation[position].dateCession!!)
+        holder.dateCession.text = context.getString(R.string.dateCession, formatDate)
         holder.surfaceBien.text = context.getString(R.string.surfaceBien, listGeomutation[position].surfaceBien)
         holder.nombreLot.text = context.getString(R.string.nombreLot, listGeomutation[position].nombreLot)
-        holder.venteVefa.text = context.getString(R.string.venteVEFA, listGeomutation[position].venteVefa)
+        if (listGeomutation[position].venteVefa == false) holder.venteVefa.visibility = TextView.INVISIBLE
+        else holder.venteVefa.text = context.getString(R.string.venteVEFA, listGeomutation[position].venteVefa)
         holder.referenceParcelle.text = context.getString(R.string.referenceParcelle, listGeomutation[position].referenceParcelle)
+    }
+
+    private fun reformatDateCession(dateCession: String): String {
+        val nouveauFormat = dateCession.split("-")
+        var format = ""
+        for (i in nouveauFormat.size-1 downTo 0) {
+            format += nouveauFormat[i]+"/"
+        }
+        return format.substring(0, format.length-1)
+
     }
 
     override fun getItemCount(): Int {

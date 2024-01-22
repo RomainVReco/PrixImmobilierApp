@@ -6,6 +6,7 @@ import com.priximmo.geojson.geomutation.Geomutation
 
 data class GeoMutationData(
     val libTypBien: String?,
+    val dateCession: String?,
     val valeurFonciere: String?,
     val surfaceBien: String?,
     val nombreLot: Int?,
@@ -13,7 +14,9 @@ data class GeoMutationData(
     val referenceParcelle: String?,
     val geomutationId: Int?
 ): Parcelable {
+
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -28,6 +31,7 @@ data class GeoMutationData(
         parcel.writeString(libTypBien)
         parcel.writeString(valeurFonciere)
         parcel.writeString(surfaceBien)
+        parcel.writeString(dateCession)
         parcel.writeValue(nombreLot)
         parcel.writeValue(venteVefa)
         parcel.writeString(referenceParcelle)
