@@ -3,11 +3,13 @@ package com.priximmo.activities
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toolbar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
@@ -54,8 +56,9 @@ class MutationActivity : AppCompatActivity() {
         addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)
         parcelleTitle.text = getString(R.string.parcelle_title, addressData.label)
+
         val toolbar = findViewById<Toolbar>(R.id.toolbarMutation)
-//        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar)
 
         progressBar = findViewById(R.id.progressBarMutation)
 
@@ -65,18 +68,34 @@ class MutationActivity : AppCompatActivity() {
         mutationAdapter = MutationAdapter(listofMutation)
         recyclerMutation.adapter = mutationAdapter
 
-
-
         getParcelleFromGeometry(addressData.geometry.toString())
         }
-
-//    override fun setSupportActionBar(toolbar: androidx.appcompat.widget.Toolbar?) {
-//        super.setSupportActionBar(toolbar)
-//    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_mutation_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+        R.id.toolbarMutationFilter->{
+            Toast.makeText(this, "Filtrer", Toast.LENGTH_SHORT).show()
+            true
+        }
+        R.id.toolbarMutationSearch->{
+            Toast.makeText(this, "Chercher", Toast.LENGTH_SHORT).show()
+            true
+        }
+        R.id.toolbarMutationSort->{
+            listofMutation.sortedWith(compareByDescending{it.dateCession})
+            Log.d(Tag, "Sort list by valeur foncière")
+            mutationAdapter = MutationAdapter(listofMutation)
+            mutationAdapter.setResultSet(listofMutation)
+            Toast.makeText(this, "Trier", Toast.LENGTH_SHORT).show()
+            true
+        }
+        else->{
+            super.onOptionsItemSelected(item)
+        }
     }
 
     private fun getParcelleFromGeometry(geometry: String) {
@@ -92,7 +111,6 @@ class MutationActivity : AppCompatActivity() {
     private fun extractGeomutationFromParcelle(parcelleResponse: Parcelle) {
         Log.d(Tag, "extractGeomutationFromParcelle")
         val codeInsee = getCodeInseeFromPostCode(addressData.postCode)
-//        val codeInsee = addressData.postCode
         var bbox: String?
         if (parcelleResponse.numberReturned==0) {
             Log.d(Tag, "no parcelle found with GeometryPoint. Trying with closestParcelle")
@@ -169,6 +187,9 @@ class MutationActivity : AppCompatActivity() {
         }
         mutationAdapter.setResultSet(listofMutation)
         progressBar.visibility = View.INVISIBLE
+        Log.d(Tag, "Liste")
+        val nbMutation = findViewById<TextView>(R.id.nombreMutation)
+        nbMutation.text = getString(R.string.nb_mutation, listofMutation.size)
         Log.d(Tag, "Fin fillSetOfMutation")
     }
 

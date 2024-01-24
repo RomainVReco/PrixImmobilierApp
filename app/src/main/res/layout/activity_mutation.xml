@@ -24,7 +24,7 @@
         android:id="@+id/parcelleAddressTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="64dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="Adresse sélectionnée : 1bis rue de la gare 75015 Paris"
@@ -40,7 +40,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="60dp"
         android:indeterminateBehavior="repeat"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,6 @@
         android:id="@+id/recyclerMutation"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:paddingRight="5dp"
@@ -60,8 +59,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/parcelleAddressTitle"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/nombreMutation"
+        app:layout_constraintVertical_bias="0.213"
         tools:listitem="@layout/item_recycler_mutation_activity" />
+
+    <TextView
+        android:id="@+id/nombreMutation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Nombre de mutations"
+        android:textColor="#020202"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parcelleAddressTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

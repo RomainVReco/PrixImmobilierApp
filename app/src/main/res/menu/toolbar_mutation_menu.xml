@@ -8,6 +8,7 @@
         android:title="Filtrer"
         app:showAsAction="always" />
     <item
+        android:id="@+id/toolbarMutationSort"
         android:icon="@drawable/sort_fill0_24"
         android:title="Trier"
         app:showAsAction="always" />
