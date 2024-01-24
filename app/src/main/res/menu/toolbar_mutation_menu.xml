@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/toolbarMutationFilter"
+        android:icon="@drawable/filter_alt_24"
+        android:title="Filtrer"
+        app:showAsAction="always" />
+    <item
+        android:icon="@drawable/sort_fill0_24"
+        android:title="Trier"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/toolbarMutationSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/searchmagnifier"
+        android:title="Chercher"
+        app:showAsAction="never" />
+</menu>

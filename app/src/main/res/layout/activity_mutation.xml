@@ -6,10 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".activities.MutationActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarMutation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:navigationIcon="@drawable/baseline_menu_24"
+        app:title="PrixImmo"
+        app:logo="@drawable/real_estate_agent_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/parcelleAddressTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="Adresse sélectionnée : 1bis rue de la gare 75015 Paris"
@@ -38,7 +53,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="80dp"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
         android:paddingRight="5dp"

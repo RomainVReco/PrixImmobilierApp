@@ -2,9 +2,11 @@ package com.priximmo.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,10 +42,6 @@ import java.util.Collections
 class MutationActivity : AppCompatActivity() {
     val Tag = "mutationActivity"
     lateinit var addressData: AddressData
-
-//     var addressData = AddressData("21 Rue du Capitaine Ferber 92130 Issy-les-Moulineaux",
-//         "92, Hauts-de-Seine, Île-de-France", "{\"type\": \"Point\",\"coordinates\":[2.266267,48.825897]}",
-//    "92130");
     lateinit var recyclerMutation: RecyclerView
     lateinit var mutationAdapter: MutationAdapter
     lateinit var progressBar: ProgressBar
@@ -56,6 +54,9 @@ class MutationActivity : AppCompatActivity() {
         addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)
         parcelleTitle.text = getString(R.string.parcelle_title, addressData.label)
+        val toolbar = findViewById<Toolbar>(R.id.toolbarMutation)
+//        setSupportActionBar(toolbar)
+
         progressBar = findViewById(R.id.progressBarMutation)
 
         recyclerMutation = findViewById(R.id.recyclerMutation)
@@ -64,8 +65,19 @@ class MutationActivity : AppCompatActivity() {
         mutationAdapter = MutationAdapter(listofMutation)
         recyclerMutation.adapter = mutationAdapter
 
+
+
         getParcelleFromGeometry(addressData.geometry.toString())
         }
+
+//    override fun setSupportActionBar(toolbar: androidx.appcompat.widget.Toolbar?) {
+//        super.setSupportActionBar(toolbar)
+//    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_mutation_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
     private fun getParcelleFromGeometry(geometry: String) {
         GlobalScope.launch(Dispatchers.IO) {
