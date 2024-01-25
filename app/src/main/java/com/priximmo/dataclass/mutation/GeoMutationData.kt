@@ -7,7 +7,7 @@ import com.priximmo.geojson.geomutation.Geomutation
 data class GeoMutationData(
     val libTypBien: String?,
     val dateCession: String?,
-    val valeurFonciere: String?,
+    val valeurFonciere: Float?,
     val surfaceBien: String?,
     val nombreLot: Int?,
     val venteVefa: Boolean?,
@@ -18,7 +18,7 @@ data class GeoMutationData(
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
+        parcel.readFloat(),
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
@@ -29,7 +29,7 @@ data class GeoMutationData(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(libTypBien)
-        parcel.writeString(valeurFonciere)
+        parcel.writeFloat(valeurFonciere!!)
         parcel.writeString(surfaceBien)
         parcel.writeString(dateCession)
         parcel.writeValue(nombreLot)

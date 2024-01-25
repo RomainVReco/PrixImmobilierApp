@@ -48,6 +48,7 @@ class MutationActivity : AppCompatActivity() {
     lateinit var mutationAdapter: MutationAdapter
     lateinit var progressBar: ProgressBar
     var listofMutation: MutableList<GeoMutationData> = ArrayList()
+    var isSorted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(Tag, "onCreate")
@@ -86,11 +87,16 @@ class MutationActivity : AppCompatActivity() {
             true
         }
         R.id.toolbarMutationSort->{
-            listofMutation.sortedWith(compareByDescending{it.dateCession})
             Log.d(Tag, "Sort list by valeur foncière")
-            mutationAdapter = MutationAdapter(listofMutation)
-            mutationAdapter.setResultSet(listofMutation)
-            Toast.makeText(this, "Trier", Toast.LENGTH_SHORT).show()
+            val sortedlistofMutation: MutableList<GeoMutationData>
+            if (!isSorted) {
+                sortedlistofMutation = listofMutation.sortedWith(compareByDescending{it.valeurFonciere}).toMutableList()
+                isSorted = true
+            } else {
+                sortedlistofMutation = listofMutation.sortedWith(compareBy{it.valeurFonciere}).toMutableList()
+                isSorted = false
+            }
+            mutationAdapter.setResultSet(sortedlistofMutation)
             true
         }
         else->{
@@ -174,7 +180,7 @@ class MutationActivity : AppCompatActivity() {
         Log.d(Tag, "fillSetOfMutation")
         for (fm in geomutationApiResponse.features) {
             val libTypBien = fm.geomutationPoperties.libtypbien
-            val valeurFonciere = fm.geomutationPoperties.valeurfonc.toString() + " €"
+            val valeurFonciere = fm.geomutationPoperties.valeurfonc
             val dateCession = fm.geomutationPoperties.datemut
             val surfaceBien = fm.geomutationPoperties.sbati.toString() + "m²"
             val nombreLot = fm.geomutationPoperties.nblocmut
