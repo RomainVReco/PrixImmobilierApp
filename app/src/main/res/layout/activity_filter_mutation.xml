@@ -22,6 +22,7 @@
         android:layout_height="808dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarFilter">
 
@@ -37,12 +38,9 @@
 
         <EditText
             android:id="@+id/editMinPrice"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
+            style="@style/EditTextFilter"
             android:background="@drawable/edit_text_border"
             android:inputType="numberDecimal"
-            android:paddingStart="16dp"
             android:text="@string/prix_min"
             android:textSize="20sp" />
 
@@ -58,22 +56,17 @@
 
         <EditText
             android:id="@+id/editMaxPrice"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
+            style="@style/EditTextFilter"
             android:background="@drawable/edit_text_border"
             android:inputType="numberDecimal"
-            android:paddingStart="16dp"
             android:text="@string/prix_min"
             android:textSize="20sp" />
+
+
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="#000000"
-            android:backgroundTint="@color/black"
-            android:textSize="1sp" />
+            android:id="@+id/fakeBorder1"
+            style="@style/FakeBorder"
+            android:background="#000000" />
 
         <TextView
             android:id="@+id/labelNbLot"
@@ -85,43 +78,45 @@
             android:textSize="20sp"
             tools:visibility="visible" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="fill"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarFilter">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:singleSelection="true">
 
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/lot_1" />
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/lot_2" />
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/lot_3" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/lot_chip_1"
+                style="@style/Chip.Design"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/lot_1" />
 
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:checkable="true"
-            android:text="@string/lot_4" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/lot_chip_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/lot_2" />
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/lot_chip_3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/lot_3" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/lot_chip_4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:text="@string/lot_4" />
         </com.google.android.material.chip.ChipGroup>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/fakeBorder2"
+            style="@style/FakeBorder"
+            android:background="#000000" />
+
 
     </LinearLayout>
 
