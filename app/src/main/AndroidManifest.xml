@@ -16,6 +16,9 @@
         android:theme="@style/Theme.PrixImmo"
         tools:targetApi="31">
         <activity
+            android:name=".activities.Filter_mutation_drawer"
+            android:exported="false" />
+        <activity
             android:name=".activities.MutationActivity"
             android:exported="false" />
         <activity
