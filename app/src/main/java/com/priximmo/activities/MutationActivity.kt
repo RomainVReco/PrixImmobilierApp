@@ -50,7 +50,6 @@ class MutationActivity : AppCompatActivity() {
     lateinit var progressBar: ProgressBar
     var listofMutation: MutableList<GeoMutationData> = ArrayList()
     var isSorted = false
-    lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(Tag, "onCreate")
@@ -58,13 +57,12 @@ class MutationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_mutation)
         addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
 
-        drawerLayout = findViewById(R.id.drawerFilterMutation)
-
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)
         parcelleTitle.text = getString(R.string.parcelle_title, addressData.label)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbarMutation)
         setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         progressBar = findViewById(R.id.progressBarMutation)
 
@@ -83,11 +81,11 @@ class MutationActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
-        R.id.toolbarMutationFilter->{
+        R.id.toolbarMutationFilter -> {
             Toast.makeText(this, "Filtrer", Toast.LENGTH_SHORT).show()
             true
         }
-        R.id.toolbarMutationSearch->{
+        R.id.toolbarMutationSearch -> {
             Toast.makeText(this, "Chercher", Toast.LENGTH_SHORT).show()
             true
         }
