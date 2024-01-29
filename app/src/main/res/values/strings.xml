@@ -21,6 +21,8 @@
     <string name="lot_2"> 2 </string>
     <string name="lot_3"> 3</string>
     <string name="lot_4">4+</string>
-    <string name="surface">%f m²</string>
+    <string name="surface_min">%f m²</string>
+    <string name="surface_max">%f m²</string>
+    <string name="date_mutation">Année minimale de mutation : %d</string>
 
 </resources>
