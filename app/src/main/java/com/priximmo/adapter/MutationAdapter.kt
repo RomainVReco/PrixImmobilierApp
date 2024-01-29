@@ -33,7 +33,7 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
         Log.d(Tag, "onBindViewHolder")
         val context = holder.itemView.context
         holder.natureOperation.text = context.getString(R.string.libTypBien, listGeomutation[position].libTypBien)
-        holder.valeurFonciere.text = context.getString(R.string.valeurFonciere, listGeomutation[position].valeurFonciere)
+        holder.valeurFonciere.text = context.getString(R.string.valeurFonciere, listGeomutation[position].valeurFonciere.toString())
         val formatDate = reformatDateCession(listGeomutation[position].dateCession!!)
         holder.dateCession.text = context.getString(R.string.dateCession, formatDate)
         holder.surfaceBien.text = context.getString(R.string.surfaceBien, listGeomutation[position].surfaceBien)

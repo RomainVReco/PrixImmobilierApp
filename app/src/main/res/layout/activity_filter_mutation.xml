@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.FilterMutationActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarFilter">
+
+        <TextView
+            android:id="@+id/labelPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:shadowColor="#0C0C0C"
+            android:text="Valeur foncière"
+            android:textColor="#191818"
+            android:textSize="20sp"
+            tools:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editMinPrice"
+            style="@style/EditTextFilter"
+            android:background="@drawable/edit_text_border"
+            android:hint="@string/prix_min"
+            android:inputType="numberDecimal"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/labelA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:shadowColor="#0C0C0C"
+            android:text="à"
+            android:textColor="#191818"
+            android:textSize="20sp"
+            tools:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editMaxPrice"
+            style="@style/EditTextFilter"
+            android:background="@drawable/edit_text_border"
+            android:hint="@string/prix_max"
+            android:inputType="numberDecimal"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/fakeBorder1"
+            style="@style/FakeBorder"
+            android:background="#000000" />
+
+        <TextView
+            android:id="@+id/labelNbLot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:shadowColor="#0C0C0C"
+            android:text="Nombre de lots"
+            android:textColor="#191818"
+            android:textSize="20sp"
+            tools:visibility="visible" />
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/lot_chip_1"
+                style="@style/Chip.Design"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/lot_1" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/lot_chip_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/lot_2" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/lot_chip_3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/lot_3" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/lot_chip_4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:text="@string/lot_4" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/fakeBorder2"
+            style="@style/FakeBorder"
+            android:background="#000000" />
+
+        <TextView
+            android:id="@+id/labelSurface"
+            style=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:shadowColor="#0C0C0C"
+            android:text="Surface en m²"
+            android:textColor="#191818"
+            android:textSize="20sp"
+            tools:visibility="visible" />
+
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/surfaceSliderBar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:stepSize="1.0"
+            android:valueFrom="0.0"
+            android:valueTo="300.0"
+            app:values="@array/barre_surface" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/surfaceMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:shadowColor="#0C0C0C"
+                android:text="@string/surface_max"
+                android:textColor="#191818"
+                android:textSize="20sp"
+                android:gravity="center"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/surfaceMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:shadowColor="#0C0C0C"
+                android:text="@string/surface_min"
+                android:textColor="#191818"
+                android:textSize="20sp"
+                android:gravity="center"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/validateFilter"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Valider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.652" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

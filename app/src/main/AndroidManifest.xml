@@ -16,11 +16,16 @@
         android:theme="@style/Theme.PrixImmo"
         tools:targetApi="31">
         <activity
-            android:name=".activities.MutationActivity"
+            android:name=".activities.FilterMutationActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.MutationActivity"
+            android:exported="false"
+            android:launchMode="singleInstancePerTask" />
+        <activity
             android:name=".activities.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleInstancePerTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

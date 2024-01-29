@@ -1,5 +1,6 @@
 package com.priximmo.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
@@ -55,11 +57,13 @@ class MutationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mutation)
         addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
+
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)
         parcelleTitle.text = getString(R.string.parcelle_title, addressData.label)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbarMutation)
         setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         progressBar = findViewById(R.id.progressBarMutation)
 
@@ -78,11 +82,12 @@ class MutationActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
-        R.id.toolbarMutationFilter->{
-            Toast.makeText(this, "Filtrer", Toast.LENGTH_SHORT).show()
+        R.id.toolbarMutationFilter -> {
+            val intent = Intent(this, FilterMutationActivity::class.java)
+            startActivity(intent)
             true
         }
-        R.id.toolbarMutationSearch->{
+        R.id.toolbarMutationSearch -> {
             Toast.makeText(this, "Chercher", Toast.LENGTH_SHORT).show()
             true
         }
@@ -158,7 +163,6 @@ class MutationActivity : AppCompatActivity() {
                         fillSetOfMutation(geomutationApiResponse)
                     }
                 } else {
-                    // Handle unsuccessful response
                     println("Error: ${response.code()}")
                     println("Message: ${response.message()}")
                     println("Body: ${response.body()}")
@@ -169,7 +173,6 @@ class MutationActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Geomutation>, t: Throwable) {
-                // Handle network errors
                 println("Network error: ${t.message}")
                 Log.e("Network error: ", "Error : ${t.message}", t)
             }
@@ -195,7 +198,8 @@ class MutationActivity : AppCompatActivity() {
         progressBar.visibility = View.INVISIBLE
         Log.d(Tag, "Liste")
         val nbMutation = findViewById<TextView>(R.id.nombreMutation)
-        nbMutation.text = getString(R.string.nb_mutation, listofMutation.size)
+        nbMutation.text = resources.getQuantityString(R.plurals.nb_mutation, listofMutation.size, listofMutation.size, listofMutation.size)
+        nbMutation.visibility = View.VISIBLE
         Log.d(Tag, "Fin fillSetOfMutation")
     }
 
