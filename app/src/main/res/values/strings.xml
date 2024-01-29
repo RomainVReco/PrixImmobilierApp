@@ -4,8 +4,7 @@
         %s</string>
     <plurals name="nb_mutation">
         <item quantity="zero">%d mutation trouvée</item>
-        <item quantity="one">%d mutation trouvée</item>
-        <item quantity="many">%d mutations trouvées</item>
+        <item quantity="other">%d mutations trouvées</item>
     </plurals>
     <string name="libTypBien">Type de bien : %s</string>
     <string name="valeurFonciere">Valeur foncière : %s</string>
@@ -17,10 +16,11 @@
 
 <!--  Éléments de la vue FilterMutation  -->
     <string name="prix_min">Valeur minimale</string>
-    <string name="prixmaxn">Valeur maximale</string>
-    <string name="lot_1">1</string>
-    <string name="lot_2">2</string>
-    <string name="lot_3">3</string>
+    <string name="prix_max">Valeur maximale</string>
+    <string name="lot_1"> 1 </string>
+    <string name="lot_2"> 2 </string>
+    <string name="lot_3"> 3</string>
     <string name="lot_4">4+</string>
+    <string name="surface">%f m²</string>
 
 </resources>

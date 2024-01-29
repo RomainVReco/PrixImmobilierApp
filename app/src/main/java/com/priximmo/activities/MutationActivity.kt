@@ -1,5 +1,6 @@
 package com.priximmo.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -82,7 +83,8 @@ class MutationActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
         R.id.toolbarMutationFilter -> {
-            Toast.makeText(this, "Filtrer", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, FilterMutationActivity::class.java)
+            startActivity(intent)
             true
         }
         R.id.toolbarMutationSearch -> {
