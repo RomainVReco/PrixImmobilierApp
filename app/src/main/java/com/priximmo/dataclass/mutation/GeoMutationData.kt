@@ -50,5 +50,7 @@ data class GeoMutationData(
         override fun newArray(size: Int): Array<GeoMutationData?> {
             return arrayOfNulls(size)
         }
+
+        var KeyGeomutationData = "Geomutation"
     }
 }
