@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
@@ -83,7 +82,7 @@ class MutationActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
         R.id.toolbarMutationFilter -> {
-            val intent = Intent(this, FilterMutationActivity::class.java)
+            val intent = Intent(this, ActivityFilterMutation::class.java)
             startActivity(intent)
             true
         }
