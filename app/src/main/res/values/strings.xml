@@ -2,7 +2,9 @@
 
 
 <!--    Éléments de la vue Main     -->
-    <string name="selected_year">%s</string>
+    <string name="selected_year">Année séléctionnée : %d</string>
+    <string name="chip_current_year">Pour l\'année </string>
+    <string name="chip_minimum_year">A partir de l\'année </string>
 
 
 <!--    Éléments de la vue Mutation     -->
