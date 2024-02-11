@@ -17,7 +17,7 @@ class ActivityFilterMutation : AppCompatActivity() {
 
 
 
-        mutationData = intent.getParcelableExtra(GeoMutationData.KeyGeomutationData)!!
+//        mutationData = intent.getParcelableExtra(GeoMutationData.KeyGeomutationData)!!
 
         val minMaxArray = getMinMaxFromList(mutationData)
 

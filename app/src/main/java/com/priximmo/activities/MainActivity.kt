@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.slider.Slider
 import com.priximmo.R
 import com.priximmo.adapter.AddressAdapter
+import com.priximmo.databinding.ActivityMainBinding
 import com.priximmo.dataclass.addressBAN.AddressData
 import com.priximmo.geojson.adresseban.AddressBAN
 import kotlinx.coroutines.Dispatchers
@@ -21,31 +23,45 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class
-MainActivity : AppCompatActivity() {
+MainActivity : AppCompatActivity(), Slider.OnChangeListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView : SearchView
     private lateinit var addressAdapter: AddressAdapter
     private var mList : MutableList<AddressData> = ArrayList()
     private val Tag: String = "MainActivity"
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(Tag, "onCreate")
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
+        searchView = findViewById(R.id.searchBarId)
 
         addressAdapter = AddressAdapter(mList)
         recyclerView = findViewById(R.id.mainActivityRecycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = addressAdapter
 
-        searchView = findViewById(R.id.searchBarId)
+        initSearchView()
+        initSelectedYear()
+        initYearSlider()
+
+
+    }
+
+    private fun initYearSlider() {
+    }
+    private fun initSelectedYear() {
+        binding.selectedYearText.text = getString(R.string.selected_year, binding.slideBarAnnee.value.toString())
+    }
+    private fun initSearchView() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 queryAddressFromText(query)
                 return true
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.length>4){
                     queryAddressFromText(newText)
@@ -54,6 +70,13 @@ MainActivity : AppCompatActivity() {
                 return false
             }
         })
+    }
+
+    override fun onValueChange(slider: Slider, value: Float, fromUser: Boolean) {
+        var year = slider.value.toString()
+        if (fromUser) {
+
+        }
     }
 
     private fun queryAddressFromText(query: String?) {
@@ -110,4 +133,6 @@ MainActivity : AppCompatActivity() {
             }
         })
     }
+
+
 }
