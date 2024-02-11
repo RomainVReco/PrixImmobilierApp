@@ -38,7 +38,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 import java.net.URISyntaxException
-import java.time.LocalDateTime
 import java.util.Collections
 
 
@@ -48,6 +47,7 @@ class ActivityDisplayMutations : AppCompatActivity() {
     lateinit var recyclerMutation: RecyclerView
     lateinit var mutationAdapter: MutationAdapter
     lateinit var progressBar: ProgressBar
+    private var yearToSearch = 0
     var listofMutation: MutableList<GeoMutationData> = ArrayList()
     var isSorted = false
 
@@ -56,6 +56,8 @@ class ActivityDisplayMutations : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_mutations)
         addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
+        yearToSearch = intent.getIntExtra(AddressData.keyYearData,0)
+        Log.d(Tag, yearToSearch.toString())
 
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)
         parcelleTitle.text = getString(R.string.parcelle_title, addressData.label)
@@ -138,7 +140,6 @@ class ActivityDisplayMutations : AppCompatActivity() {
     @Throws(URISyntaxException::class, IOException::class)
     fun getGeomutationsFromTerrain(bboxOfFeuille: String, cityCode: String) {
         Log.d(Tag, "getGeomutationsFromTerrain")
-        val currentYear = LocalDateTime.now().year
 
         val retrofit = GeomutationRetrofitAPI.getClient()
 
@@ -146,9 +147,9 @@ class ActivityDisplayMutations : AppCompatActivity() {
 
         val codeInsee = cityCode
         val inBbox = bboxOfFeuille
-        val anneemutMin = currentYear-2
+        val anneemutMin = yearToSearch.toString()
 
-        val call = apiService.searchGeomutation(anneemutMin.toString(), inBbox, codeInsee)
+        val call = apiService.searchGeomutationByAnneeMin(anneemutMin, inBbox, codeInsee)
         Log.d(Tag, "appel API Geomutation")
 
         call.enqueue(object : Callback<Geomutation> {

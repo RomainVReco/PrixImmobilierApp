@@ -3,6 +3,7 @@ package com.priximmo.dataclass.addressBAN
 import android.content.Intent
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import com.priximmo.activities.ActivityDisplayMutations
 
@@ -27,6 +28,7 @@ data class AddressData(val label: String, val context: String, val geometry: Str
 
     companion object CREATOR : Parcelable.Creator<AddressData> {
         val keyAddressData = "addressData"
+        val keyYearData = "yearData"
         override fun createFromParcel(parcel: Parcel): AddressData {
             return AddressData(parcel)
         }
@@ -35,9 +37,11 @@ data class AddressData(val label: String, val context: String, val geometry: Str
             return arrayOfNulls(size)
         }
 
-        fun launchDetailAddressActivity(addressData: AddressData, view: View) {
+        fun launchDetailAddressActivity(addressData: AddressData, view: View, yearToSearch: Int) {
             val intent = Intent(view.context, ActivityDisplayMutations::class.java)
             intent.putExtra(keyAddressData, addressData)
+            intent.putExtra(AddressData.keyYearData, yearToSearch)
+            Log.d("IntentExtras", intent.extras.toString())
             view.context.startActivity(intent)
         }
     }

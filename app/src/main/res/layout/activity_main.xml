@@ -55,26 +55,33 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:chipSpacingHorizontal="5dp"
+        app:chipSpacingVertical="16dp"
+        app:selectionRequired="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        app:singleSelection="true"
         app:layout_constraintTop_toBottomOf="@+id/labelDate">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipSelectedYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checkable="true"
-            android:text="Pour l'année :" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipCurrentYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
-            android:text="A partir de l'année :" />
+            android:checked="true"
+            android:tag=""
+            android:text="@string/chip_current_year" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMinimumYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="@string/chip_minimum_year" />
     </com.google.android.material.chip.ChipGroup>
 
 
@@ -101,9 +108,8 @@
         android:layout_height="55dp"
         android:layout_marginTop="4dp"
         android:stepSize="1.0"
-        android:value="2022.0"
-        android:valueFrom="2010.0"
-        android:valueTo="2023.0"
+        android:valueFrom="2010"
+        android:valueTo="2023"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

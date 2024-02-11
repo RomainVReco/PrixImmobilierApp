@@ -21,6 +21,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.LocalDateTime
 
 class
 MainActivity : AppCompatActivity(), Slider.OnChangeListener {
@@ -28,6 +29,7 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView : SearchView
     private lateinit var addressAdapter: AddressAdapter
+    private var defaultYear = (LocalDateTime.now().year-2).toFloat()
     private var mList : MutableList<AddressData> = ArrayList()
     private val Tag: String = "MainActivity"
     private lateinit var binding: ActivityMainBinding
@@ -36,26 +38,27 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
         Log.d(Tag, "onCreate")
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         searchView = findViewById(R.id.searchBarId)
+        initViewComponents()
+        initSearchView()
 
         addressAdapter = AddressAdapter(mList)
+        addressAdapter.setYearChange(defaultYear.toInt())
         recyclerView = findViewById(R.id.mainActivityRecycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = addressAdapter
-
-        initSearchView()
-        initSelectedYear()
-        initYearSlider()
-
+        binding.slideBarAnnee.addOnChangeListener(this)
 
     }
 
-    private fun initYearSlider() {
+    private fun initViewComponents() {
+        binding.slideBarAnnee.value = defaultYear
+        val selectedValue = binding.slideBarAnnee.value.toInt()
+        binding.selectedYearText.text = getString(R.string.selected_year, selectedValue)
     }
-    private fun initSelectedYear() {
-        binding.selectedYearText.text = getString(R.string.selected_year, binding.slideBarAnnee.value.toString())
-    }
+
+
     private fun initSearchView() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -73,9 +76,11 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
     }
 
     override fun onValueChange(slider: Slider, value: Float, fromUser: Boolean) {
-        var year = slider.value.toString()
+        Log.d("SliderDebug", "onValueChange - value : ${value.toInt()}")
+        var year = value.toInt()
         if (fromUser) {
-
+            binding.selectedYearText.text = getString(R.string.selected_year,year)
+            addressAdapter.setYearChange(year)
         }
     }
 
@@ -94,10 +99,10 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
         var listAddressSample: MutableList<AddressData> = ArrayList()
         if (listOfAddress.features.size>0) {
             for (addressFeature in listOfAddress.features) {
-                var addressSample = AddressData(addressFeature.properties.label, addressFeature.properties.context,
-                    addressFeature.geometry.toString(), addressFeature.properties.postcode)
-                listAddressSample.add(addressSample)
-                Log.d("AdressSample", addressSample.toString())
+                    var addressSample = AddressData(addressFeature.properties.label, addressFeature.properties.context,
+                        addressFeature.geometry.toString(), addressFeature.properties.postcode)
+                    listAddressSample.add(addressSample)
+                    Log.d("AdressSample", addressSample.toString())
             }
             addressAdapter.setResultSet(listAddressSample)
             Log.d(Tag, "Fin fillAddressList")
