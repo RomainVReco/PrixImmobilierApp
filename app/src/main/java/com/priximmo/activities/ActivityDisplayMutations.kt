@@ -42,7 +42,7 @@ import java.time.LocalDateTime
 import java.util.Collections
 
 
-class MutationActivity : AppCompatActivity() {
+class ActivityDisplayMutations : AppCompatActivity() {
     val Tag = "mutationActivity"
     lateinit var addressData: AddressData
     lateinit var recyclerMutation: RecyclerView
@@ -54,7 +54,7 @@ class MutationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(Tag, "onCreate")
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mutation)
+        setContentView(R.layout.activity_display_mutations)
         addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
 
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)

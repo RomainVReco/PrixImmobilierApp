@@ -1,4 +1,11 @@
 <resources>
+
+
+<!--    Éléments de la vue Main     -->
+    <string name="selected_year">%s</string>
+
+
+<!--    Éléments de la vue Mutation     -->
     <string name="app_name">PrixImmo</string>
     <string name="parcelle_title">Adresse sélectionnée :\n
         %s</string>

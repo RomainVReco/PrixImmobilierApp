@@ -188,7 +188,7 @@
             tools:visibility="visible" />
 
         <com.google.android.material.slider.Slider
-            android:id="@+id/slideBarSurface"
+            android:id="@+id/slideBarAnnee"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:stepSize="1.0"

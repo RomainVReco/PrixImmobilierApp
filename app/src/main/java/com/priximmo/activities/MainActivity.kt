@@ -29,9 +29,6 @@ MainActivity : AppCompatActivity() {
     private var mList : MutableList<AddressData> = ArrayList()
     private val Tag: String = "MainActivity"
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(Tag, "onCreate")
         super.onCreate(savedInstanceState)

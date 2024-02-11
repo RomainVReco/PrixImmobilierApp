@@ -19,7 +19,7 @@
             android:name=".activities.ActivityFilterMutation"
             android:exported="false" />
         <activity
-            android:name=".activities.MutationActivity"
+            android:name=".activities.ActivityDisplayMutations"
             android:exported="false"
             android:launchMode="singleInstancePerTask" />
         <activity

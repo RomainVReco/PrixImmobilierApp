@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.View
-import com.priximmo.activities.MutationActivity
+import com.priximmo.activities.ActivityDisplayMutations
 
 data class AddressData(val label: String, val context: String, val geometry: String, val postCode: String): Parcelable {
 
@@ -36,7 +36,7 @@ data class AddressData(val label: String, val context: String, val geometry: Str
         }
 
         fun launchDetailAddressActivity(addressData: AddressData, view: View) {
-            val intent = Intent(view.context, MutationActivity::class.java)
+            val intent = Intent(view.context, ActivityDisplayMutations::class.java)
             intent.putExtra(keyAddressData, addressData)
             view.context.startActivity(intent)
         }

@@ -27,7 +27,6 @@ class ActivityFilterMutation : AppCompatActivity() {
         binding.surfaceSliderBar.valueTo = getMaxSurface(mutationData)
         binding.surfaceMax.text = getString(R.string.surface_max, getMaxSurface(mutationData))
         binding.surfaceMin.text = getString(R.string.surface_max, 0)
-
     }
 
     private fun getMaxSurface(mutationData: List<GeoMutationData>): Float {
