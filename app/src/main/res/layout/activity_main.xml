@@ -32,6 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:iconifiedByDefault="false"
         app:layout_constraintTop_toBottomOf="@+id/mainTitle" />
 
     <TextView
@@ -40,22 +41,73 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:shadowColor="#0C0C0C"
-        android:text="Date de mutation "
+        android:text="Année des mutations :"
         android:textColor="#191818"
         android:textSize="20sp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         app:layout_constraintTop_toBottomOf="@+id/searchBarId"
         tools:layout_editor_absoluteX="0dp"
         tools:visibility="visible" />
 
-    <com.google.android.material.slider.Slider
-        android:id="@+id/slideBarSurface"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupAnnee"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/labelDate">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSelectedYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Pour l'année :" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipCurrentYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="A partir de l'année :" />
+    </com.google.android.material.chip.ChipGroup>
+
+
+    <TextView
+        android:id="@+id/slideSelectedYear"
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:text="@string/selected_year"
+        android:textColor="#191818"
+        android:textSize="20sp"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chipGroupAnnee"/>
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slideBarAnnee"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="4dp"
         android:stepSize="1.0"
         android:valueFrom="2010.0"
         android:valueTo="2023.0"
-        app:layout_constraintTop_toBottomOf="@+id/labelDate"
-        tools:layout_editor_absoluteX="0dp" />
+        android:value="2022.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/slideSelectedYear" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainActivityRecycler"
@@ -66,9 +118,9 @@
         android:paddingRight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slideBarSurface"
+        app:layout_constraintTop_toBottomOf="@+id/slideBarAnnee"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_recycler_main_activity" />
 
