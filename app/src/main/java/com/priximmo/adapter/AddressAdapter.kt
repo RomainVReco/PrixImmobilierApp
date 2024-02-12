@@ -16,6 +16,7 @@ import java.time.LocalDateTime
 class AddressAdapter (private var listAddressData: MutableList<AddressData>): RecyclerView.Adapter<AddressAdapter.ViewHolder>() {
     private val Tag: String = "AddressAdapter"
     private var yearToSearch: Int = 0
+    private var chipSelected = ""
 
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val labelAddress = itemView.findViewById<TextView>(R.id.mainRecyclerLabel)
@@ -35,7 +36,7 @@ class AddressAdapter (private var listAddressData: MutableList<AddressData>): Re
         holder.contextAddress.text = listAddressData[position].context
         holder.container.setOnClickListener{ view ->
             Log.d(Tag, "ClickOnAddress")
-            AddressData.launchDetailAddressActivity(listAddressData[position], view, yearToSearch)
+            AddressData.launchDetailAddressActivity(listAddressData[position], view, yearToSearch, chipSelected)
         }
     }
 
@@ -50,6 +51,10 @@ class AddressAdapter (private var listAddressData: MutableList<AddressData>): Re
     fun setYearChange(newValue: Int) {
         this.yearToSearch = newValue
         Log.d(Tag, "setYearChange : ${this.yearToSearch}")
+    }
+    fun setChip(chipId: String) {
+        this.chipSelected = chipId
+        Log.d(Tag, "setChip : ${this.chipSelected}")
     }
 
 

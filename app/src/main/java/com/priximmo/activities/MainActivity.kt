@@ -42,14 +42,24 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
         searchView = findViewById(R.id.searchBarId)
         initViewComponents()
         initSearchView()
+        initChipGroup()
 
         addressAdapter = AddressAdapter(mList)
         addressAdapter.setYearChange(defaultYear.toInt())
+        addressAdapter.setChip(getString(R.string.chip_current_year))
         recyclerView = findViewById(R.id.mainActivityRecycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = addressAdapter
         binding.slideBarAnnee.addOnChangeListener(this)
+    }
 
+    private fun initChipGroup() {
+        binding.chipMinimumYear.setOnClickListener{
+            addressAdapter.setChip(getString(R.string.chip_minimum_year))}
+        Log.d("Chip_1", getString(R.string.chip_minimum_year))
+
+        binding.chipCurrentYear.setOnClickListener { addressAdapter.setChip(getString(R.string.chip_current_year)) }
+        Log.d("Chip_2", getString(R.string.chip_current_year))
     }
 
     private fun initViewComponents() {
@@ -57,7 +67,6 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
         val selectedValue = binding.slideBarAnnee.value.toInt()
         binding.selectedYearText.text = getString(R.string.selected_year, selectedValue)
     }
-
 
     private fun initSearchView() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
