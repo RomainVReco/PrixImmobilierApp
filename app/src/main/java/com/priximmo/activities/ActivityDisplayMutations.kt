@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
 import com.priximmo.adapter.MutationAdapter
+import com.priximmo.databinding.ActivityDisplayMutationsBinding
 import com.priximmo.dataclass.addressBAN.AddressData
 import com.priximmo.dataclass.mutation.GeoMutationData
 import com.priximmo.exceptions.NoParcelleException
@@ -47,6 +48,8 @@ class ActivityDisplayMutations : AppCompatActivity() {
     lateinit var recyclerMutation: RecyclerView
     lateinit var mutationAdapter: MutationAdapter
     lateinit var progressBar: ProgressBar
+    lateinit var binding: ActivityDisplayMutationsBinding
+    var chipSelected: Int = 0
     private var yearToSearch = 0
     var listofMutation: MutableList<GeoMutationData> = ArrayList()
     var isSorted = false
@@ -54,9 +57,11 @@ class ActivityDisplayMutations : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(Tag, "onCreate")
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_display_mutations)
+        binding = ActivityDisplayMutationsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         addressData = intent.getParcelableExtra(AddressData.keyAddressData)!!
         yearToSearch = intent.getIntExtra(AddressData.keyYearData,0)
+        chipSelected = intent.getIntExtra(AddressData.keyChipSelected,0)
         Log.d(Tag, yearToSearch.toString())
 
         val parcelleTitle = findViewById<TextView>(R.id.parcelleAddressTitle)
@@ -147,9 +152,14 @@ class ActivityDisplayMutations : AppCompatActivity() {
 
         val codeInsee = cityCode
         val inBbox = bboxOfFeuille
-        val anneemutMin = yearToSearch.toString()
-
-        val call = apiService.searchGeomutationByAnneeMin(anneemutMin, inBbox, codeInsee)
+        val annee = yearToSearch.toString()
+        val call: Call<Geomutation>
+        if (chipSelected.equals(getString(R.string.chip_minimum_year))) {
+            call = apiService.searchGeomutationByAnneeMin(annee, inBbox, codeInsee)
+            }
+        else {
+            call = apiService.searchGeomutationForSingleYear(annee, inBbox, codeInsee)
+        }
         Log.d(Tag, "appel API Geomutation")
 
         call.enqueue(object : Callback<Geomutation> {

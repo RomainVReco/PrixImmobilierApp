@@ -29,6 +29,7 @@ data class AddressData(val label: String, val context: String, val geometry: Str
     companion object CREATOR : Parcelable.Creator<AddressData> {
         val keyAddressData = "addressData"
         val keyYearData = "yearData"
+        val keyChipSelected = "chip"
         override fun createFromParcel(parcel: Parcel): AddressData {
             return AddressData(parcel)
         }
@@ -37,10 +38,11 @@ data class AddressData(val label: String, val context: String, val geometry: Str
             return arrayOfNulls(size)
         }
 
-        fun launchDetailAddressActivity(addressData: AddressData, view: View, yearToSearch: Int) {
+        fun launchDetailAddressActivity(addressData: AddressData, view: View, yearToSearch: Int, chip: String) {
             val intent = Intent(view.context, ActivityDisplayMutations::class.java)
             intent.putExtra(keyAddressData, addressData)
-            intent.putExtra(AddressData.keyYearData, yearToSearch)
+            intent.putExtra(keyYearData, yearToSearch)
+            intent.putExtra(keyChipSelected, chip)
             Log.d("IntentExtras", intent.extras.toString())
             view.context.startActivity(intent)
         }
