@@ -62,7 +62,6 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
         binding.chipSingleYear.tag = 0
         binding.chipSingleYear.setOnClickListener { addressAdapter.setChip(0) }
         Log.d("Chip_2_AnneeMin", getString(R.string.chip_single_year))
-
     }
 
     private fun initViewComponents() {
@@ -149,6 +148,7 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
             }
         })
     }
+
     override fun onPause() {
         super.onPause()
         Log.d(Tag, "onPause")

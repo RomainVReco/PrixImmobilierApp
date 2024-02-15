@@ -38,7 +38,8 @@ data class AddressData(val label: String, val context: String, val geometry: Str
             return arrayOfNulls(size)
         }
 
-        fun launchDetailAddressActivity(addressData: AddressData, view: View, yearToSearch: Int, chip: Int) {
+       fun launchDetailAddressActivity(addressData: AddressData, view: View, yearToSearch: Int, chip: Int) {
+
             val intent = Intent(view.context, ActivityDisplayMutations::class.java)
             intent.putExtra(keyAddressData, addressData)
             intent.putExtra(keyYearData, yearToSearch)

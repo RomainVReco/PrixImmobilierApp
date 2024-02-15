@@ -76,6 +76,7 @@
             android:tag=""
             android:text="@string/chip_single_year" />
 
+
         <com.google.android.material.chip.Chip
             android:id="@+id/chipMinimumYear"
             android:layout_width="wrap_content"

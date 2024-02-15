@@ -320,4 +320,5 @@ class ActivityDisplayMutations : AppCompatActivity() {
         super.onRestart()
         Log.d(Tag, "onRestart")
     }
+
 }

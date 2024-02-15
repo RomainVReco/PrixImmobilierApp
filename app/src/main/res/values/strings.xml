@@ -4,6 +4,7 @@
 <!--    Éléments de la vue Main     -->
     <string name="selected_year">Année séléctionnée : %d</string>
     <string name="chip_single_year">Pour l\'année </string>
+
     <string name="chip_minimum_year">A partir de l\'année </string>
 
 

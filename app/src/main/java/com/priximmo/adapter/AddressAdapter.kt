@@ -18,6 +18,7 @@ class AddressAdapter (private var listAddressData: MutableList<AddressData>): Re
     private var yearToSearch: Int = 0
     private var chipSelected = 0
 
+
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val labelAddress = itemView.findViewById<TextView>(R.id.mainRecyclerLabel)
         val contextAddress = itemView.findViewById<TextView>(R.id.mainRecyclerContext)
