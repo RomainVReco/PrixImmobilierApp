@@ -68,13 +68,13 @@
 
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chipCurrentYear"
+            android:id="@+id/chip_single_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
             android:checked="true"
             android:tag=""
-            android:text="@string/chip_current_year" />
+            android:text="@string/chip_single_year" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipMinimumYear"

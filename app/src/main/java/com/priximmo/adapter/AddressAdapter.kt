@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 class AddressAdapter (private var listAddressData: MutableList<AddressData>): RecyclerView.Adapter<AddressAdapter.ViewHolder>() {
     private val Tag: String = "AddressAdapter"
     private var yearToSearch: Int = 0
-    private var chipSelected = ""
+    private var chipSelected = 0
 
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val labelAddress = itemView.findViewById<TextView>(R.id.mainRecyclerLabel)
@@ -52,7 +52,7 @@ class AddressAdapter (private var listAddressData: MutableList<AddressData>): Re
         this.yearToSearch = newValue
         Log.d(Tag, "setYearChange : ${this.yearToSearch}")
     }
-    fun setChip(chipId: String) {
+    fun setChip(chipId: Int) {
         this.chipSelected = chipId
         Log.d(Tag, "setChip : ${this.chipSelected}")
     }
