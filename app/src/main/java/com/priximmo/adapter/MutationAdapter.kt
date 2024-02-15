@@ -63,5 +63,4 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
     }
 
 
-
 }

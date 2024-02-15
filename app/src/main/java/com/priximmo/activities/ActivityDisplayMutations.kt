@@ -154,7 +154,8 @@ class ActivityDisplayMutations : AppCompatActivity() {
         val inBbox = bboxOfFeuille
         val annee = yearToSearch.toString()
         val call: Call<Geomutation>
-        if (chipSelected.equals(getString(R.string.chip_minimum_year))) {
+        // 0 pour la recherche sur une année et 1 pour une recherche sur un intervalle
+        if (chipSelected == 1) {
             call = apiService.searchGeomutationByAnneeMin(annee, inBbox, codeInsee)
             }
         else {
@@ -306,4 +307,18 @@ class ActivityDisplayMutations : AppCompatActivity() {
         doubleList.add(java.lang.Double.valueOf(coordinatesToParse[1]))
         return doubleList
     }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(Tag, "onPause")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(Tag, "onDestroy")
+    }
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(Tag, "onRestart")
+    }
+
 }

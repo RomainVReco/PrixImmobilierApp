@@ -46,7 +46,7 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
 
         addressAdapter = AddressAdapter(mList)
         addressAdapter.setYearChange(defaultYear.toInt())
-        addressAdapter.setChip(getString(R.string.chip_current_year))
+        addressAdapter.setChip(0)
         recyclerView = findViewById(R.id.mainActivityRecycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = addressAdapter
@@ -54,12 +54,14 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
     }
 
     private fun initChipGroup() {
+        binding.chipMinimumYear.tag = 1
         binding.chipMinimumYear.setOnClickListener{
-            addressAdapter.setChip(getString(R.string.chip_minimum_year))}
-        Log.d("Chip_1", getString(R.string.chip_minimum_year))
+            addressAdapter.setChip(1)}
+        Log.d("Chip_1_AnneeMinMut", getString(R.string.chip_minimum_year))
 
-        binding.chipCurrentYear.setOnClickListener { addressAdapter.setChip(getString(R.string.chip_current_year)) }
-        Log.d("Chip_2", getString(R.string.chip_current_year))
+        binding.chipSingleYear.tag = 0
+        binding.chipSingleYear.setOnClickListener { addressAdapter.setChip(0) }
+        Log.d("Chip_2_AnneeMin", getString(R.string.chip_single_year))
     }
 
     private fun initViewComponents() {
@@ -140,7 +142,6 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
                     println("API request failed. Response Code: ${response.code()}")
                 }
             }
-
             override fun onFailure(call: Call<AddressBAN>, t: Throwable) {
                 Log.d(Tag, "onFailure")
                 t.printStackTrace()
@@ -148,5 +149,16 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
         })
     }
 
-
+    override fun onPause() {
+        super.onPause()
+        Log.d(Tag, "onPause")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(Tag, "onDestroy")
+    }
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(Tag, "onRestart")
+    }
 }
