@@ -12,9 +12,9 @@ class ViewModelDisplayMutation () {
             sortedlistofMutation[sortedlistofMutation.size - 1].valeurFonciere
         )
     }
-
     fun getMinMaxSurface(mutationData: MutableList<GeoMutationData>): Array<Int> {
         var sortedlistofMutation = mutationData.sortedWith(compareByDescending{it.surfaceBien}).toMutableList()
         return arrayOf(sortedlistofMutation[0].surfaceBien, sortedlistofMutation[sortedlistofMutation.size-1].surfaceBien)
     }
+
 }
