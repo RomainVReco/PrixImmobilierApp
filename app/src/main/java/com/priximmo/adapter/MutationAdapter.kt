@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.priximmo.R
 import com.priximmo.dataclass.addressBAN.AddressData
 import com.priximmo.dataclass.mutation.GeoMutationData
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>): RecyclerView.Adapter<MutationAdapter.ViewHolder>() {
     val Tag: String = "MutationAdapter"
@@ -33,7 +35,8 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
         Log.d(Tag, "onBindViewHolder")
         val context = holder.itemView.context
         holder.natureOperation.text = context.getString(R.string.libTypBien, listGeomutation[position].libTypBien)
-        holder.valeurFonciere.text = context.getString(R.string.valeurFonciere, listGeomutation[position].valeurFonciere.toString())
+        var formattedValeur = formatFloatWithSpaces(listGeomutation[position].valeurFonciere)
+        holder.valeurFonciere.text = context.getString(R.string.valeurFonciere, formattedValeur)
         val formatDate = reformatDateCession(listGeomutation[position].dateCession!!)
         holder.dateCession.text = context.getString(R.string.dateCession, formatDate)
         holder.surfaceBien.text = context.getString(R.string.surfaceBien, listGeomutation[position].surfaceBien)
@@ -41,6 +44,11 @@ class MutationAdapter (private var listGeomutation: MutableList<GeoMutationData>
         if (listGeomutation[position].venteVefa == false) holder.venteVefa.visibility = TextView.INVISIBLE
         else holder.venteVefa.text = context.getString(R.string.venteVEFA, listGeomutation[position].venteVefa)
         holder.referenceParcelle.text = context.getString(R.string.referenceParcelle, listGeomutation[position].referenceParcelle)
+    }
+
+    private fun formatFloatWithSpaces(valeurFonciere: Float): String {
+        val formatter: NumberFormat = DecimalFormat("#,###.##")
+        return formatter.format(valeurFonciere.toDouble()).replace(",", " ")
     }
 
     private fun reformatDateCession(dateCession: String): String {

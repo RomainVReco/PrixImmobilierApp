@@ -103,10 +103,7 @@ class ActivityDisplayMutations : AppCompatActivity() {
                 }
             }
         }
-
-
-
-        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_mutation_menu, menu)
