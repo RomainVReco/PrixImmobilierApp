@@ -90,9 +90,16 @@ class ActivityDisplayMutations : AppCompatActivity() {
 
         boxPlotFilterContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val filteredBoxPlot: FilteredBoxPlot? = result.data?.getParcelableExtra("key")
-
+                val filteredBoxPlot: GeomutationBoxPlot? = result.data?.getParcelableExtra("KeyFilter")
                 filteredBoxPlot?.let {
+                    var filteredList: MutableList<GeoMutationData> = mutableListOf()
+                    for (mutation in listofMutation) {
+                        if ((mutation.valeurFonciere >= filteredBoxPlot.valFonciereMin && mutation.valeurFonciere <= filteredBoxPlot.valFonciereMax)
+                            && (mutation.surfaceBien >= filteredBoxPlot.surfaceMin && mutation.surfaceBien <= filteredBoxPlot.surfaceMax)
+                            && (mutation.nombreLot >= filteredBoxPlot.nbrLots)) filteredList.add(mutation)
+                    }
+                    binding.nombreMutation.text = resources.getQuantityString(R.plurals.nb_mutation, filteredList.size, filteredList.size, filteredList.size)
+                    mutationAdapter.setResultSet(filteredList)
                 }
             }
         }
@@ -348,5 +355,6 @@ class ActivityDisplayMutations : AppCompatActivity() {
         super.onRestart()
         Log.d(Tag, "onRestart")
     }
+
 
 }
