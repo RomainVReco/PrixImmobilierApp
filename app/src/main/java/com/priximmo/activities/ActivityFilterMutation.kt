@@ -22,9 +22,8 @@ class ActivityFilterMutation : AppCompatActivity() {
 
         binding.surfaceSliderBar.valueFrom = mutationData.surfaceMin.toFloat()
         binding.surfaceSliderBar.valueTo = mutationData.surfaceMax.toFloat()
-        binding.surfaceMax.text = getString(R.string.surface_max, mutationData.surfaceMax)
-        binding.surfaceMin.text = getString(R.string.surface_max, mutationData.surfaceMin)
+        binding.surfaceMax.text = getString(R.string.surface_max, mutationData.surfaceMin)
+        binding.surfaceMin.text = getString(R.string.surface_max, mutationData.surfaceMax)
 
-        binding.slideBarAnnee.valueFrom = mutationData.anneMutationMin.toFloat()
     }
 }

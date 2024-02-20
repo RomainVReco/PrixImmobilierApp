@@ -1,5 +1,6 @@
 package com.priximmo.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import com.priximmo.R
 import com.priximmo.adapter.MutationAdapter
 import com.priximmo.databinding.ActivityDisplayMutationsBinding
 import com.priximmo.dataclass.addressBAN.AddressData
+import com.priximmo.dataclass.filter.FilteredBoxPlot
 import com.priximmo.dataclass.filter.GeomutationBoxPlot
 import com.priximmo.dataclass.mutation.GeoMutationData
 import com.priximmo.exceptions.NoParcelleException
@@ -101,6 +104,15 @@ class ActivityDisplayMutations : AppCompatActivity() {
             val boxPlot = GeomutationBoxPlot(
                 arrayValeurMinMax[0]!!, arrayValeurMinMax[1]!!, 0,
                 arraySurfaceMinMax[1],arraySurfaceMinMax[0], yearToSearch)
+
+            val boxPlotFilterContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val filteredBoxPlot: FilteredBoxPlot? = result.data?.getParcelableExtra("key")
+
+                    filteredBoxPlot?.let {
+                    }
+                }
+            }
             intent.putExtra(GeomutationBoxPlot.keyBoxPlot, boxPlot)
             startActivity(intent)
             true
