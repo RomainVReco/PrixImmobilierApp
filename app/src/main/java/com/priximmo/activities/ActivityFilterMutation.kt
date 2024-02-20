@@ -47,12 +47,13 @@ class ActivityFilterMutation : AppCompatActivity() {
                     break
                 }
             }
-            val surfaceMin = binding.surfaceMin.text.toString().toInt()
-            val surfaceMax = binding.surfaceMax.text.toString().toInt()
+            val minMax = binding.surfaceSliderBar.values
+            val surfaceMin = minMax[0].toInt()
+            val surfaceMax = minMax[1].toInt()
             val filteredBoxPlot = GeomutationBoxPlot(minValeurFonciere, maxValeurFonciere, nbrLot.toInt(),
                 surfaceMin, surfaceMax, mutationData.anneMutationMin)
             val intent = Intent()
-            intent.putExtra("Key", filteredBoxPlot)
+            intent.putExtra("KeyFilter", filteredBoxPlot)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
