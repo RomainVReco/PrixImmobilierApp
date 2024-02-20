@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -54,6 +55,7 @@ class ActivityDisplayMutations : AppCompatActivity() {
     lateinit var mutationAdapter: MutationAdapter
     lateinit var progressBar: ProgressBar
     lateinit var binding: ActivityDisplayMutationsBinding
+    lateinit var boxPlotFilterContract: ActivityResultLauncher<Intent>
     var chipSelected: Int = 0
     private var yearToSearch = 0
     var listofMutation: MutableList<GeoMutationData> = ArrayList()
@@ -86,6 +88,15 @@ class ActivityDisplayMutations : AppCompatActivity() {
 
         getParcelleFromGeometry(addressData.geometry.toString())
 
+        boxPlotFilterContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val filteredBoxPlot: FilteredBoxPlot? = result.data?.getParcelableExtra("key")
+
+                filteredBoxPlot?.let {
+                }
+            }
+        }
+
 
 
         }
@@ -105,16 +116,9 @@ class ActivityDisplayMutations : AppCompatActivity() {
                 arrayValeurMinMax[0]!!, arrayValeurMinMax[1]!!, 0,
                 arraySurfaceMinMax[1],arraySurfaceMinMax[0], yearToSearch)
 
-            val boxPlotFilterContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    val filteredBoxPlot: FilteredBoxPlot? = result.data?.getParcelableExtra("key")
-
-                    filteredBoxPlot?.let {
-                    }
-                }
-            }
             intent.putExtra(GeomutationBoxPlot.keyBoxPlot, boxPlot)
-            startActivity(intent)
+            boxPlotFilterContract.launch(intent)
+//            startActivity(intent)
             true
         }
         R.id.toolbarMutationSearch -> {
