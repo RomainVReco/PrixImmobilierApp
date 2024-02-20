@@ -17,9 +17,9 @@
         <item quantity="other">%d mutations trouvées</item>
     </plurals>
     <string name="libTypBien">Type de bien : %s</string>
-    <string name="valeurFonciere">Valeur foncière : %s</string>
+    <string name="valeurFonciere">Valeur foncière : %s €</string>
     <string name="dateCession">Date de cession : %s</string>
-    <string name="surfaceBien">Surface : %s</string>
+    <string name="surfaceBien">Surface : %d m²</string>
     <string name="nombreLot">Nombre de lot : %d</string>
     <string name="venteVEFA">Vefa : %b</string>
     <string name="referenceParcelle">Parcelle : %s</string>
@@ -31,8 +31,8 @@
     <string name="lot_2"> 2 </string>
     <string name="lot_3"> 3</string>
     <string name="lot_4">4+</string>
-    <string name="surface_min">%f m²</string>
-    <string name="surface_max">%f m²</string>
+    <string name="surface_min">%d m²</string>
+    <string name="surface_max">%d m²</string>
     <string name="date_mutation">Année minimale de mutation : %d</string>
 
 </resources>

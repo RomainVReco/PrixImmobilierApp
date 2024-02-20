@@ -17,6 +17,7 @@ import com.priximmo.R
 import com.priximmo.adapter.MutationAdapter
 import com.priximmo.databinding.ActivityDisplayMutationsBinding
 import com.priximmo.dataclass.addressBAN.AddressData
+import com.priximmo.dataclass.filter.GeomutationBoxPlot
 import com.priximmo.dataclass.mutation.GeoMutationData
 import com.priximmo.exceptions.NoParcelleException
 import com.priximmo.geojson.feuille.Feuille
@@ -25,6 +26,7 @@ import com.priximmo.geojson.parcelle.OrderByDistanceReference
 import com.priximmo.geojson.parcelle.Parcelle
 import com.priximmo.geojson.parcelle.SimplifiedParcelle
 import com.priximmo.model.ResponseManagerHTTP
+import com.priximmo.model.ViewModelDisplayMutation
 import com.priximmo.retrofitapi.commune.CommuneAPI
 import com.priximmo.retrofitapi.commune.CommuneRetrofitAPI
 import com.priximmo.retrofitapi.geomutation.GeoMutationAPI
@@ -80,6 +82,9 @@ class ActivityDisplayMutations : AppCompatActivity() {
         recyclerMutation.adapter = mutationAdapter
 
         getParcelleFromGeometry(addressData.geometry.toString())
+
+
+
         }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -90,6 +95,13 @@ class ActivityDisplayMutations : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
         R.id.toolbarMutationFilter -> {
             val intent = Intent(this, ActivityFilterMutation::class.java)
+            val test = ViewModelDisplayMutation()
+            val arrayValeurMinMax = test.getMinMaxFromList(listofMutation)
+            val arraySurfaceMinMax = test.getMinMaxSurface(listofMutation)
+            val boxPlot = GeomutationBoxPlot(
+                arrayValeurMinMax[0]!!, arrayValeurMinMax[1]!!, 0,
+                arraySurfaceMinMax[1],arraySurfaceMinMax[0], yearToSearch)
+            intent.putExtra(GeomutationBoxPlot.keyBoxPlot, boxPlot)
             startActivity(intent)
             true
         }
@@ -196,7 +208,7 @@ class ActivityDisplayMutations : AppCompatActivity() {
             val libTypBien = fm.geomutationPoperties.libtypbien
             val valeurFonciere = fm.geomutationPoperties.valeurfonc
             val dateCession = fm.geomutationPoperties.datemut
-            val surfaceBien = fm.geomutationPoperties.sbati.toString() + "m²"
+            val surfaceBien = fm.geomutationPoperties.sbati.toInt()
             val nombreLot = fm.geomutationPoperties.nblocmut
             val venteVefa = fm.geomutationPoperties.isVefa
             val referenceParcelle = fm.geomutationPoperties.getlIdpar().toString()

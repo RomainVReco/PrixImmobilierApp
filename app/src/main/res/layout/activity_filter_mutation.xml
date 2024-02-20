@@ -136,7 +136,6 @@
             android:layout_height="55dp"
             android:stepSize="1.0"
             android:valueFrom="0.0"
-            android:valueTo="300.0"
             app:values="@array/barre_surface" />
 
         <LinearLayout
