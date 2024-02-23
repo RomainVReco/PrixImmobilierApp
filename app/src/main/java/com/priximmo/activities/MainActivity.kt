@@ -107,13 +107,21 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
 
     private fun fillAddressList(listOfAddress: AddressBAN) {
         Log.d(Tag, "fillAddressList")
-        var listAddressSample: MutableList<AddressData> = ArrayList()
+        val listAddressSample: MutableList<AddressData> = ArrayList()
         if (listOfAddress.features.size>0) {
+            try {
             for (addressFeature in listOfAddress.features) {
-                    var addressSample = AddressData(addressFeature.properties.label, addressFeature.properties.context,
-                        addressFeature.geometry.toString(), addressFeature.properties.postcode)
+
+                    var addressSample = AddressData(
+                        addressFeature.properties.label, addressFeature.properties.context,
+                        addressFeature.geometry.toString(), addressFeature.properties.postcode
+                    )
                     listAddressSample.add(addressSample)
                     Log.d("AdressSample", addressSample.toString())
+
+            }
+            } catch (e: NullPointerException) {
+                Log.d(Tag, "Erreur sur code postal")
             }
             addressAdapter.setResultSet(listAddressSample)
             Log.d(Tag, "Fin fillAddressList")
