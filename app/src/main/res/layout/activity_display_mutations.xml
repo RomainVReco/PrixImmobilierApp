@@ -13,11 +13,12 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:title="PrixImmo"
-        app:logo="@drawable/real_estate_agent_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:logo="@drawable/real_estate_agent_24"
+        app:title="     PrixImmo"
+        app:titleTextColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/parcelleAddressTitle"

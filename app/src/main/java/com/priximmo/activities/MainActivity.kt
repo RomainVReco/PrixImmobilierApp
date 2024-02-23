@@ -121,7 +121,8 @@ MainActivity : AppCompatActivity(), Slider.OnChangeListener {
 
             }
             } catch (e: NullPointerException) {
-                Log.d(Tag, "Erreur sur code postal")
+                Log.e(Tag, "Erreur sur code postal")
+                Log.e(Tag, e.toString())
             }
             addressAdapter.setResultSet(listAddressSample)
             Log.d(Tag, "Fin fillAddressList")

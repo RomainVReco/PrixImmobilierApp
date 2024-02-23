@@ -76,7 +76,7 @@ class ActivityDisplayMutations : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbarMutation)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         progressBar = findViewById(R.id.progressBarMutation)
 
@@ -123,10 +123,6 @@ class ActivityDisplayMutations : AppCompatActivity() {
             intent.putExtra(GeomutationBoxPlot.keyBoxPlot, boxPlot)
             boxPlotFilterContract.launch(intent)
 //            startActivity(intent)
-            true
-        }
-        R.id.toolbarMutationSearch -> {
-            Toast.makeText(this, "Chercher", Toast.LENGTH_SHORT).show()
             true
         }
         R.id.toolbarMutationSort->{

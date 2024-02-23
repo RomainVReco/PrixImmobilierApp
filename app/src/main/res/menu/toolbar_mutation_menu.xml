@@ -13,14 +13,6 @@
         android:title="Trier"
         app:showAsAction="always" />
     <item
-        android:id="@+id/toolbarMutationSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:icon="@drawable/searchmagnifier"
-        android:title="Chercher"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
-    <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Tri : par date croissante" />
