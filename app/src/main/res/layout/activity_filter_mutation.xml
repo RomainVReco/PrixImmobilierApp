@@ -182,34 +182,6 @@
             style="@style/FakeBorder"
             android:background="#000000" />
 
-        <TextView
-            android:id="@+id/labelDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:shadowColor="#0C0C0C"
-            android:text="Date de mutation "
-            android:textColor="#191818"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/searchBarId"
-            tools:layout_editor_absoluteX="0dp"
-            tools:visibility="visible" />
-
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slideBarAnnee"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:stepSize="1.0"
-            android:valueFrom="2010.0"
-            android:valueTo="2023.0"
-            app:layout_constraintTop_toBottomOf="@+id/labelDate"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <TextView
-            android:id="@+id/fakeBorder4"
-            style="@style/FakeBorder"
-            android:background="#000000" />
-
     </LinearLayout>
 
     <Button
