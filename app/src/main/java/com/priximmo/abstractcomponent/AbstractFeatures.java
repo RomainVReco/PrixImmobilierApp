@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.priximmo.geojson.geometry.GeometryPolygon;
 
+import java.util.List;
+
 public abstract class AbstractFeatures<T> {
     private String type;
     private String id;
@@ -12,6 +14,9 @@ public abstract class AbstractFeatures<T> {
     private String geometryName;
     @JsonProperty("properties")
     private T terrainProperties;
+
+    @JsonProperty("bbox")
+    private List<Double> bbox ;
 
     public String getType() {
         return type;

@@ -197,10 +197,10 @@ class ActivityDisplayMutations : AppCompatActivity() {
                     Log.d(Tag, response.code().toString())
                     Log.d(Tag, response.body().toString())
                     val geomutationApiResponse = response.body()
-                    if (geomutationApiResponse != null) {
-                        println(geomutationApiResponse.showGeomutationContent())
+//                    if (geomutationApiResponse != null) {
+                        println(geomutationApiResponse!!.showGeomutationContent())
                         fillSetOfMutation(geomutationApiResponse)
-                    }
+//                    }
                 } else {
                     println("Error: ${response.code()}")
                     println("Message: ${response.message()}")
@@ -210,12 +210,12 @@ class ActivityDisplayMutations : AppCompatActivity() {
                     println("Headers: ${response.headers()}")
                 }
             }
-
             override fun onFailure(call: Call<Geomutation>, t: Throwable) {
                 println("Network error: ${t.message}")
                 Log.e("Network error: ", "Error : ${t.message}", t)
             }
         })
+
     }
 
     private fun fillSetOfMutation(geomutationApiResponse: Geomutation) {
